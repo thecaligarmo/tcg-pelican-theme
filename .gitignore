@@ -1,4 +1,6 @@
-output/*                                                                                                  
+output/*
+content/*
+latex/archive/*
 pelicanconf.py
 pelicanconf.pyc
 pelicanconf_fr.py

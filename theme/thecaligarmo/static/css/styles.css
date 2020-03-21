@@ -322,8 +322,19 @@ h4:after {
 }
 .content img.latex{
     width: auto;
-    margin-top:10px;
+    margin:0px;
+}
+
+.content img.latex.inline{
+    display:inline-block;
+    height:14px;
+    line-height:24px;
+}
+
+.content img.latex.block{
+    display:block;
     margin-bottom:10px;
+    width:100%;
 }
 
 .content.highlight pre {
@@ -457,4 +468,27 @@ blockquote{
 }
 .footer a{
     color: #fff;
+}
+
+
+/*****
+ * Page specific
+ */
+
+.example {
+    background-color:#e6ffff;
+    border:1px solid #47b2cc;
+    border-radius:10px;
+    padding:20px;
+}
+
+.definition strong:first-child {
+    background-color:#fff;
+    padding:0px;
+}
+
+.definition strong {
+    background-color:#ccebff;
+    border-radius:3px;
+    padding:0px 3px 1px;
 }
