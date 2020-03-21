@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}{{ INDEX_HEAD_TITLE }} {% if articles_page.has_previous() %}- page {{ articles_page.number }} {% endif %}- {{ SITENAME }}{% endblock title %}
+
+{% block subheader %}
+    <h2 class="subheader-title">{{ INDEX_SUBHEADER_TITLE }}</h2>
+    {% if INDEX_SUBHEADER_SUBTITLE and INDEX_SUBHEADER_SUBTITLE != '' %}
+        <p class="subheader-subtitle">{{ INDEX_SUBHEADER_SUBTITLE }}</p>
+    {% endif %}
+{% endblock subheader %}
+
+{% block content %}
+    {% if DEFAULT_PAGINATION %}    
+        <div class="index">
+            <h2><a href="{{ SITEURL }}/{{ articles_page.url }}">{{ INDEX_CONTENT_TITLE }} {% if articles_page.has_previous() %}<small>- page {{ articles_page.number }}</small>{% endif %}</a></h2>
+            <dl class="row">
+                {% for article in articles_page.object_list %}
+                <dt class="text-right col-3">{{ article.locale_date}}</dt>
+                <dd class="col-9"><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></dd>
+                {% endfor %}
+            </dl>
+        </div>
+        {% include 'partials/pagination.html' %}
+    {% else %}
+        <div class="index">
+            <h2><a href="{{ SITEURL }}/">{{ INDEX_CONTENT_TITLE }}</a></h2>
+            {% include 'partials/article-list.html' %}
+        </div>
+    {% endif %}
+{% endblock content %}

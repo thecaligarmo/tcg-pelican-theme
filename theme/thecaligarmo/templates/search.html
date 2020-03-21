@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ SEARCH_HEAD_TITLE }} - {{ SITENAME }}{% endblock title %}
+
+
+{% block subheader %}
+    <h2 class="subheader-title text-uppercase">{{ SEARCH_SUBHEADER_TITLE }}</h2>
+    {% if SEARCH_SUBHEADER_SUBTITLE and SEARCH_SUBHEADER_SUBTITLE != '' %}
+        <p class="subheader-subtitle">{{ SEARCH_SUBHEADER_SUBTITLE }}</p>
+    {% endif %}
+{% endblock subheader %}
+
+
+{% block scripts %}
+    <script type="text/javascript" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/jquery.min.js"></script>
+    <script src="{{ SITEURL }}/tipuesearch_content.js"></script>
+    <script type="text/javascript" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/tipuesearch_set.js"></script>
+    <script type="text/javascript" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/tipuesearch.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#tipue_search_input').tipuesearch({
+                'show': 10,
+                'newWindow': false,
+                'mode': 'json',
+                'contentLocation': 'tipuesearch_content.json'
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div id="tipue_search_content"></div>
+{% endblock %}

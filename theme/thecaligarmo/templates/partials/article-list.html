@@ -1,0 +1,6 @@
+            <dl class="row">
+            	{% for article in articles %}
+            	<dt class="text-right col-3">{{ article.locale_date}}</dt>
+            	<dd class="col-9"><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></dd>
+            	{% endfor %}
+            </dl>

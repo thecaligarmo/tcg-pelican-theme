@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}{{ AUTHOR_HEAD_TITLE }} {{ author }} - {{ SITENAME }}{% endblock title %}
+
+{% block meta_desc %}
+    {% if AUTHOR_HEAD_DESCRIPTION and AUTHOR_HEAD_DESCRIPTION != '' %}
+        <meta name="description" content="{{ AUTHOR_HEAD_DESCRIPTION|striptags }}" />
+    {% else %}
+        {{ super() }}
+    {% endif %}
+{% endblock meta_desc %}
+
+
+{% block subheader %}
+    <h2 class="subheader-title text-uppercase">{{ author }}</h2>
+    {% if AUTHOR_SUBHEADER_SUBTITLE and AUTHOR_SUBHEADER_SUBTITLE != ''%}
+        <p class="subheader-subtitle">{{ AUTHOR_SUBHEADER_SUBTITLE }}</p>
+    {% endif %}
+{% endblock subheader %}
+
+{% block content %}
+    <div class="author">
+        <h2><a href="{{ SITEURL }}/{{ author.url }}">{{ AUTHOR_CONTENT_TITLE }} {{ author }}</a></h2>
+        {% include 'partials/article-list.html' %}
+    </div>
+{% endblock content %}

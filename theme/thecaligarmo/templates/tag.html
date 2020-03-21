@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}{{ TAG_HEAD_TITLE }} {{ tag }} - {{ SITENAME }}{% endblock title %}
+{% block meta_desc %}
+    <meta name="description" content="{{ TAG_HEAD_DESCRIPTION }} {{ tag }}" />
+{% endblock meta_desc %}
+
+{% block subheader %}
+    <h2 class="subheader-title text-uppercase">{{ TAG_SUBHEADER_TITLE }} : #{{ tag }}</h2>
+    {% if TAG_SUBHEADER_SUBTITLE and TAG_SUBHEADER_SUBTITLE != '' %}
+    <p class="subheader-subtitle">{{ TAG_SUBHEADER_SUBTITLE }} #{{ tag }}</p>
+    {% endif %}
+{% endblock subheader %}
+
+{% block content %}
+    <div class="tag">
+        <h2><a href="{{ SITEURL }}/{{ tag.url }}">{{ TAG_CONTENT_TITLE }} {{ tag }}</a></h2>
+        {% include 'partials/article-list.html' %}
+    </div>
+{% endblock content %}

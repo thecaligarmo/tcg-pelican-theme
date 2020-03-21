@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}{{ TAGS_HEAD_TITLE }} - {{ SITENAME }}{% endblock title %}
+{% block meta_desc %}
+    {% if TAGS_HEAD_DESCRIPTION and TAGS_HEAD_DESCRIPTION != '' %}
+        <meta name="description" content="{{ TAGS_HEAD_DESCRIPTION|striptags }}" />
+    {% else %}
+        {{ super() }}
+    {% endif %}
+{% endblock meta_desc %}
+
+
+{% block subheader %}
+    <h2 class="subheader-title text-uppercase">{{ TAGS_SUBHEADER_TITLE }}</h2>
+    {% if TAGS_SUBHEADER_SUBTITLE and TAGS_SUBHEADER_SUBTITLE != '' %}
+        <p class="subheader-subtitle">{{ TAGS_SUBHEADER_SUBTITLE }}</p>
+    {% endif %}
+{% endblock subheader %}
+
+{% block content %}
+        <div class="tags">
+            <h2><a href="{{ SITEURL }}/tags.html">{{ TAGS_CONTENT_TITLE }}</a></h2>
+            <dl class="row">
+            	{% for tag, articles in tags|sort %}
+            	{% set articles_count = articles | count %}
+            	<dt class="text-right col-3"><span class="label label-default">{{ articles | count }}</span> {% if articles_count == 1 %}article{% else %}articles{% endif %} {{ TAGS_CONTENT_LIST }}</dt>
+            	<dd class="col-9"><a href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a></dd>
+            	{% endfor %}
+            </dl>
+    </div>
+{% endblock content %}
+
+

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}{{ PERIOD_ARCHIVES_HEAD_TITLE }} {{ period | reverse | join(' ') }} - {{ super() }}{% endblock title %}
+
+{% block meta_desc %}
+    <meta name="description" content="{{ PERIOD_ARCHIVES_HEAD_DESCRIPTION }} {{ period | reverse | join(' ') }}" />
+{% endblock meta_desc %}
+
+{% block subheader %}
+    <h2 class="subheader-title text-uppercase">{{ PERIOD_ARCHIVES_SUBHEADER_TITLE }} : {{ period | reverse | join(' ') }}</h2>
+    {% if PERIOD_ARCHIVES_SUBHEADER_SUBTITLE and PERIOD_ARCHIVES_SUBHEADER_SUBTITLE != '' %}
+        <p class="subheader-subtitle">{{ PERIOD_ARCHIVES_SUBHEADER_SUBTITLE }} {{ period | reverse | join(' ') }}</p>
+    {% endif %}
+{% endblock subheader %}
+    
+{% block content %}
+        <div class="period_archive">
+            <h2>{{ PERIOD_ARCHIVES_CONTENT_TITLE }} {{ period | reverse | join(' ') }}</h2>
+            <dl class="row">
+            	{% for article in dates %}
+            	<dt class="text-right col-3">{{ article.locale_date}}</dt>
+            	<dd class="col-9"><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></dd>
+            	{% endfor %}
+            </dl>
+    </div>
+{% endblock content %}
+

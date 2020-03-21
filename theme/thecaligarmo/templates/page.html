@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block html_lang %}{{ page.lang }}{% endblock %}
+{% block title %}{{ page.title }} - {{ SITENAME }}{% endblock title %}
+
+{% block meta_desc %}
+    {% if page.summary %}
+        <meta name="description" content="{{ page.summary|striptags|escape }}" />
+    {% else %}
+        <meta name="description" content="{{ page.content|striptags|truncate(200)|escape }}" />
+    {% endif %}
+{% endblock %}
+
+{% block meta_auth %}
+    {% if page.author %}
+        <meta name="author" content="{{ page.author }}" />
+    {% else %}
+        {{ super() }}
+    {% endif %}
+{% endblock meta_auth %}
+
+{% block page_styles %}
+    {% if page.illustration %}
+        .header-container {
+            background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('{{ SITEURL }}/images/{{ page.illustration }}');
+            background-position: center;
+            background-size: cover;
+        }
+    {% endif %}
+{% endblock page_styles %}
+
+
+{% block subheader %}
+    <h2 class="subheader-title text-uppercase">{{ page.title }}</h2>
+    {% if page.subtitle %}
+        <p class="subheader-subtitle">{{ page.subtitle }}</p>
+    {% endif %}
+{% endblock subheader %}
+
+{% block content %}
+    <div class="page">
+        {{ page.content }}
+    </div>
+{% endblock %}
+

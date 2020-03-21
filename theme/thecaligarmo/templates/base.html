@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="{% block html_lang %}{{ DEFAULT_LANG }}{% endblock html_lang %}">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <title>{% block title %}{{ SITENAME }}{% endblock title %}</title>
+
+        {% block meta_desc %}
+            <meta name="description" content="{{ SITEDESCRIPTION }}">
+        {% endblock meta_desc %}
+        {% block meta_keys %}
+            <meta name="keywords" content="{{ SITETAGS|join(',')|striptags}}">
+        {% endblock meta_keys %}
+        {% block meta_auth %}
+            <meta name="author" content="{{ AUTHOR }}" />
+        {% endblock meta_auth %}
+        {% block meta %}
+        {% endblock meta %}
+
+        {% if FAVICON %}
+            <link rel="icon" href="{{ SITEURL }}/favicon.ico">
+        {% endif %}
+        {% if FAVICON_IE %}
+            <!--[if IE]><link rel="shortcut icon" href="{{ SITEURL }}/{{ FAVICON_IE }}"><![endif]-->
+        {% endif %}
+        {% if TOUCHICON %}
+            <link rel="apple-touch-icon" href="{{ SITEURL }}/{{ TOUCHICON }}">
+        {% endif %}
+
+
+
+        {% if REL_CANONICAL_LINK %}
+        <!-- Canonical -->
+        {% if article %}
+            <link rel="canonical" href="{{ SITEURL }}/{{ article.url }}">
+        {% elif author %}
+            <link rel="canonical" href="{{ SITEURL }}/{{ author.url }}">
+        {% elif category %}
+            <link rel="canonical" href="{{ SITEURL }}/{{ category.url }}">
+        {% elif tag %}
+            <link rel="canonical" href="{{ SITEURL }}/{{ tag.url }}">
+        {% else %}
+            <link rel="canonical" href="{{ SITEURL }}">
+        {% endif %}
+        <!-- /Canonical -->
+        {% endif %}
+
+
+        <!-- Stylesheets -->
+        <link href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/bootstrap.min.css" rel="stylesheet">
+        <link href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/glyphicon.css" rel="stylesheet">
+        <link href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/pygment.css" rel="stylesheet">
+        {% if 'tipue_search' in PLUGINS and TIPUE_SEARCH %}
+            <link href="{{ SITEURL}}/{{ THEME_STATIC_DIR }}/css/tipuesearch.css" rel="stylesheet">
+        {% endif %}
+
+        <link href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/styles.css" rel="stylesheet">
+        {% if CUSTOM_CSS %}
+        <link href="{{ SITEURL }}/{{ CUSTOM_CSS }}" rel="stylesheet">
+        {% endif %}
+
+
+        {% if FONT_CSS %}
+        {{ FONT_CSS }}
+        <style>
+            body{
+                {{ FONT_FAMILY }}
+            }
+        </style>
+        {% endif %}
+
+        <style>
+        {% if HEADER_IMAGE %}
+        .header-container {
+            background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('{{ SITEURL }}/images/{{ HEADER_IMAGE }}');
+            background-position: center;
+            background-size: cover;
+        }
+        {% else %}
+        .header-container {
+            background-color:{{ HEADER_COLOR }};
+        }
+        {% endif %}
+        {% block page_styles %}{% endblock page_styles %}
+        </style>
+        <!-- /Stylesheets -->
+
+        <!-- RSS Feeds -->
+        {% if FEED_ALL_ATOM %}
+        <link href="{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Full Atom Feed" />
+        {% endif %}
+
+        {% if FEED_ALL_RSS %}
+        <link href="{{ FEED_DOMAIN }}/{{ FEED_ALL_RSS }}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} Full RSS Feed" />
+        {% endif %}
+
+        {% if FEED_ATOM %}
+        <link href="{{ FEED_DOMAIN }}/{{ FEED_ATOM }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Atom Feed" />
+        {% endif %}
+
+        {% if FEED_RSS %}
+        <link href="{{ FEED_DOMAIN }}/{{ FEED_RSS }}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} RSS Feed" />
+        {% endif %}
+
+        {% if CATEGORY_FEED_ATOM and category %}
+        <link href="{{ FEED_DOMAIN }}/{{ CATEGORY_FEED_ATOM|format(category.slug) }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Categories Atom Feed" />
+        {% endif %}
+
+        {% if CATEGORY_FEED_RSS and category %}
+        <link href="{{ FEED_DOMAIN }}/{{ CATEGORY_FEED_RSS|format(category.slug) }}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} Categories RSS Feed" />
+        {% endif %}
+
+        {% if TAG_FEED_ATOM and tag %}
+        <link href="{{ FEED_DOMAIN }}/{{ TAG_FEED_ATOM|format(tag.slug) }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Tags Atom Feed" />
+        {% endif %}
+
+        {% if TAG_FEED_RSS and tag %}
+        <link href="{{ FEED_DOMAIN }}/{{ TAG_FEED_RSS|format(tag.slug) }}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} Tags RSS Feed" />
+        {% endif %}
+        <!-- /RSS Feeds -->
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        {% if GOOGLE_ANALYTICS %}
+        {% include 'partials/google-analytics.html' %}
+        {% endif %}
+
+        {% if PIWIK_URL and PIWIK_SITE_ID %}
+        {% include 'partials/piwik.html' %}
+        {% endif %}
+
+    </head>
+
+    <body>
+
+        <!-- Header -->
+        {% block headerstyle %}
+        <div class="header-container">
+        {% endblock headerstyle %}
+
+            <div class="container">
+                {% if HEADER_LOGO %}
+                <div class="header-logo">
+                    <a class="pull-left" href="{{ SITEURL }}/"><img class="mr20" src="{{ SITEURL }}{{ HEADER_LOGO }}" alt="logo">{{ SITENAME }}</a>
+                </div>
+                {% endif %}
+
+                {% block header %}
+                <div class="container header-wrapper">
+                    <div class="row">
+                      <div class="col">
+                          <div class="header-content">
+                              <h1 class="header-title">{{ HEADER_TITLE }}</h1>
+                              <div class="header-underline"></div>
+                              {% if HEADER_SUBTITLE %}
+                              <p class="header-subtitle">{{ HEADER_SUBTITLE }}</p>
+                              {% endif %}
+                              </div>
+                          </div>
+                    </div>
+                </div>
+                {% endblock header %}
+
+                <!-- Static navbar -->            
+                <div class="header-nav">
+                    <div class="nav float-left">
+                        {% for title, link in MENUITEMS %}
+                            {% if 'http://' in link or 'https://' in link %}
+                                <a class="nav-link" href="{{ link }}">{{ title }}</a>
+                            {% else %}
+                                <a class="nav-link" href="{{ SITEURL }}{{ link }}">{{ title }}</a>
+                            {% endif %}
+                        {% endfor %}
+                        {% if DISPLAY_PAGES_ON_MENU %}
+                        {% for pg in pages %}
+                            <a {% if pg == page %} class="nav-link active"{% endif %} href="{{ SITEURL }}/{{ pg.url }}">{{ pg.title }}</a>
+                        {% endfor %}
+                        {% endif %}
+                        
+                        {% if DISPLAY_CATEGORIES_ON_MENU %}
+                        {% for cat, null in categories %}
+                            <a href="{{ SITEURL }}/{{ cat.url }}">{{ cat | capitalize }}</a>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    {% if 'tipue_search' in PLUGINS and TIPUE_SEARCH%}
+                        <div class="float-right" id="tipue-search">
+                            <form class="navbar-search" action="{{SITEURL}}{{ SEARCH_URL | default('/search.html') }}">
+                                <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
+                            </form>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- /Static navbar -->
+        </div>
+        <!-- /Header -->
+
+        <!-- Subheader -->
+        <div class="container subheader-wrapper border-bottom-0 border">
+            <div class="row">
+                <div class="col">
+                    <div class="subheader-content">
+                    {% block subheader %}
+                        <h1 class="subheader-title">{{ SUBHEADER_TITLE }}</h1>
+                        <div class="subheader-underline"></div>
+                        {% if SUBHEADER_SUBTITLE %}
+                        <p class="subheader-subtitle subheader-subtitle-homepage">{{ HEADER_SUBTITLE }}</p>
+                        {% endif %}
+                    {% endblock subheader %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Subheader -->
+
+        <!-- Content -->
+        <div class="container content border">
+        {% block content %}
+        {% endblock %}
+        </div>
+        <!-- /Content --> 
+
+        <!-- Footer -->
+        <div class="footer gradient-2">
+            <div class="container footer-container ">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title">{{ FOOTER_LEFT_COLUMN_TITLE }}</div>
+                        <ul class="list-unstyled">
+                            {% for title, link in FOOTER_LEFT_MENU %}
+                            <li><a href="{{ SITEURL }}{{ link }}">{{ title }}</a></li>
+                            {% endfor %}
+                            <!--
+                            {% if FEED_ALL_ATOM %}
+                            <li><a href="{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate">{{ NEST_SITEMAP_ATOM_LINK }}</a></li>
+                            {% endif %}
+                            {% if FEED_ALL_RSS %}
+                            <li><a href="{{ FEED_DOMAIN }}/{{ FEED_ALL_RSS }}" type="application/rss+xml" rel="alternate">{{ NEST_SITEMAP_RSS_LINK }}</a></li>
+                            {% endif %}
+                            -->
+                        </ul>
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        {% if FOOTER_MIDDLE_MENU %}
+                        <div class="footer-title">{{ FOOTER_MIDDLE_COLUMN_TITLE }}</div>
+                        <ul class="list-unstyled">
+                            {% for name, link in FOOTER_MIDDLE_MENU %}
+                            <li><a href="{{ link }}" target="_blank">{{name}}</a></li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        {% if FOOTER_RIGHT_MENU %}
+                        <div class="footer-title">{{ FOOTER_RIGHT_COLUMN_TITLE }}</div>
+                        <ul class="list-unstyled">
+                            {% for name, link in FOOTER_RIGHT_MENU %}
+                            <li><a href="{{ link }}" target="_blank">{{name}}</a></li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div> 
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                        <p class="float-right text-right">
+                            <small><em>Proudly powered by <a href="http://docs.getpelican.com/" target="_blank">pelican</a></em></small><br/>
+                            <small><em>Theme and code based off <a href="https://github.com/molivier" target="_blank">molivier</a></em></small><br/>
+                            <small>{{ COPYRIGHT }}</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Footer -->
+
+        <!-- Scripts -->
+        {% block scripts %}{% endblock scripts %}
+        <!-- /Scripts -->
+    </body>
+</html>

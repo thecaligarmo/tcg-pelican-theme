@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}{{ ARCHIVES_HEAD_TITLE }} - {{ SITENAME }}{% endblock title %}
+
+{% block meta_desc %}
+    {% if ARCHIVES_HEAD_DESCRIPTION and ARCHIVES_HEAD_DESCRIPTION != '' %}
+        <meta name="description" content="{{ ARCHIVES_HEAD_DESCRIPTION|striptags }}" />
+    {% else %}
+        {{ super() }}
+    {% endif %}
+{% endblock meta_desc %}
+
+{% block page_styles %}
+    {% if ARCHIVES_HEADER_IMAGE %}
+        .header-container.archive {
+            background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('{{ SITEURL }}/images/{{ ARCHIVES_HEADER_IMAGE }}');
+            background-position: center;
+            background-size: cover;
+        }
+    {% endif %}
+{% endblock page_styles %}
+
+
+{% block headerstyle %}
+    <div class="header-container archive">
+{% endblock headerstyle %}
+
+{% block subheader %}
+    <h2 class="subheader-title text-uppercase">{{ ARCHIVES_SUBHEADER_TITLE }}</h2>
+    {% if ARCHIVES_SUBHEADER_SUBTITLE and ARCHIVES_SUBHEADER_SUBTITLE != '' %}
+        <p class="subheader-subtitle">{{ ARCHIVES_SUBHEADER_SUBTITLE }}</p>
+    {% endif %}
+{% endblock subheader %}
+
+{% block content %}
+    <div class="archive">
+        <h2><a href="{{ SITEURL }}/archives.html">{{ ARCHIVES_CONTENT_TITLE }}</a></h2>
+        {% include 'partials/article-list.html' %}
+    </div>
+{% endblock content %}
+

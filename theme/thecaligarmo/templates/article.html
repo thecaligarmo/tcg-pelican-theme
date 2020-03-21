@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block html_lang %}{{article.lang }}{% endblock %}
+{% block title %}{{ article.title|striptags }} - {{ SITENAME }}{% endblock title %}
+
+{% block meta_auth %}
+    {% if article.author %}
+        <meta name="author" content="{{ article.author }}" />
+    {% else %}
+        {{ super() }}
+    {% endif %}
+{% endblock meta_auth %}
+    
+{% block meta_keys %}
+    {% if article.tags %}
+        <meta name="keywords" content="{{ article.tags|join(',')|striptags }}" />
+    {% else %}
+        {{ super() }}
+    {% endif %}
+{% endblock meta_keys %}
+
+{% block meta_desc %}
+    {% if article.summary %}
+        <meta name="description" content="{{ article.summary|striptags|escape }}" />
+    {% else %}
+        {{ super() }}
+    {% endif %}
+{% endblock meta_desc %}
+
+{% block page_styles %}
+    {% if article.illustration %}
+        .header_container{
+            background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('{{ SITEURL }}/images/{{ article.illustration }}');
+            background-position: center;
+            background-size: cover;
+        }
+    {% endif %}
+{% endblock page_styles %}
+
+
+
+{% block subheader %}
+    <h2 class="subheader-title">{{ article.title }}</h2>
+    <p class="subheader-date">{{ ARTICLE_SUBHEADER_BY }} {% for author in article.authors %}<a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>{% if not loop.last %}, {% endif %}{% endfor %}{% if ARTICLE_SUBHEADER_PUBLISHED %}, {{ ARTICLE_SUBHEADER_PUBLISHED }} {{ article.locale_date }}{% endif %}{% if article.modified %}, {{ ARTICLE_SUBHEADER_MODIFIED }} {{ article.locale_modified }}{% endif %}<br />
+    {{ ARTICLE_SUBHEADER_IN }} <a href="{{ SITEURL }}/{{ category.url }}">{{ article.category|capitalize }}</a></p>
+{% endblock subheader %}
+
+{% block content %}
+    <div class="article">
+        {{ article.content }}
+    
+        <div class="article-tags row">
+            <div class="col"></div>
+            <div class="col">
+                <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
+                {% for tag in article.tags|sort %}<a href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
+            </div>
+        </div>
+
+        {% if article.related_posts %}
+        <h4>{{ ARTICLE_RELATED_POSTS_TITLE }}</h4>
+            <dl class="row">
+            {% for related_post in article.related_posts %}
+                <dt class="text-right col-3">{{ related_post.locale_date}}</dt>
+                <dd class="col-9"><a href="{{ SITEURL }}/{{ related_post.url }}">{{ related_post.title }}</a></dd>
+            {% endfor %}
+            </dl>
+        {% endif %}
+
+        {% include "partials/disqus_script.html" %}
+        
+    </div>
+{% endblock %}

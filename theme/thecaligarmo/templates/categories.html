@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}{{ CATEGORIES_HEAD_TITLE }} - {{ SITENAME }}{% endblock title %}
+{% block meta_desc %}
+    {% if CATEGORIES_HEAD_DESCRIPTION and CATEGORIES_HEAD_DESCRIPTION != '' %}
+        <meta name="description" content="{{ CATEGORIES_HEAD_DESCRIPTION|striptags }}" />
+    {% else %}
+        {{ super() }}
+    {% endif %}
+{% endblock meta_desc %}
+
+
+{% block subheader %}
+    <h2 class="subheader-title text-uppercase">{{ CATEGORIES_SUBHEADER_TITLE }}</h2>
+    {% if CATEGORIES_SUBHEADER_SUBTITLE and CATEGORIES_SUBHEADER_SUBTITLE != '' %}
+    <p class="subheader-subtitle">{{ CATEGORIES_SUBHEADER_SUBTITLE }}</p>
+    {% endif %}
+{% endblock subheader %}
+
+{% block content %}
+    <div class="categories">
+    	{% for category, articles in categories %}
+            <h3><a href="{{ SITEURL }}/{{ category.url }}">{{ category|capitalize }}</a></h3>
+            {% include 'partials/article-list.html' %}
+        {% endfor %}
+    </div>
+{% endblock content %}
+
