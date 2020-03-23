@@ -322,19 +322,17 @@ h4:after {
 }
 .content img.latex{
     width: auto;
-    margin:0px;
 }
 
 .content img.latex.inline{
+    margin:0px;
     display:inline-block;
-    height:14px;
-    line-height:24px;
 }
 
 .content img.latex.block{
     display:block;
+    margin-top:10px;
     margin-bottom:10px;
-    width:100%;
 }
 
 .content.highlight pre {

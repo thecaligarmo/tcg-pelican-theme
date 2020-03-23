@@ -1,7 +1,9 @@
 output/*
 content/*
+latex/*
 latex/archive/*
 pelicanconf.py
 pelicanconf.pyc
 pelicanconf_fr.py
 pelicanconf_fr.pyc
+header.conf

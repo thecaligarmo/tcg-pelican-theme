@@ -5,6 +5,15 @@ import os
 import inspect
 import re
 import datetime
+from PIL import Image
+
+
+# Must start with ./ and end with /
+cache_dir = './content/images/latex-cache/'
+latex_content_dir = './latex/'
+content_dir = './content/'
+
+
 
 
 def ensure_dir(file_path):
@@ -27,55 +36,62 @@ def get_file_contents(file):
     return c
 
 def put_file_contents(file,contents,mode="w"):
+    ensure_dir(file)
     f = open(file,mode)
     f.write(contents)
     f.close()
 
 
 
-def get_latex_img(latex, orig, latex_head_contents, className, mdfilename, path):
+def get_latex_img(latex, class_name, mdfilename, path):
+    orig = latex
+
+    # Grab header content
+    latex_head_contents = '\\documentclass[preview,12pt]{standalone}\n'
+    latex_head_contents += get_file_contents(os.path.join(path,"header.conf"))
+
     # setup contents
     latex_contents = latex_head_contents + '\\begin{document}\n'
     latex_contents += latex
     latex_contents += '\\end{document}\n'
 
     # Create hash for the latex filename
-    latexFileName = mdfilename+hashlib.md5(latex_contents).hexdigest()
+    latex_file_name = mdfilename+hashlib.md5(latex_contents).hexdigest()
+    img_file_path = os.path.join(path,cache_dir+latex_file_name+".png")
+    tmp_path = os.path.join(path,"./tmp/")
+    latex_file_path = tmp_path+latex_file_name
+    src_file_path = cache_dir.replace('./content','')
 
-    if not os.path.exists(os.path.join(path,"../content/images/latex-cache/"+latexFileName+".png")):
-        put_file_contents(latexFileName+".tex",latex_contents)
+    if not os.path.exists(img_file_path):
+        put_file_contents(latex_file_path+'.tex',latex_contents)
 
-        os.system("pdflatex "+latexFileName)
-        trim = ''
-        if className != 'block':
-            trim = '-trim '
-        os.system("convert -density 300 "+latexFileName+".pdf -quality 90 "+trim+latexFileName+".png")
-        os.system("mv "+latexFileName+".png "+os.path.join(path,"../content/images/latex-cache/."))
-        os.system("rm "+latexFileName+"*")
+        pdf_made = os.system("pdflatex -output-directory "+tmp_path[:-1] +' '+latex_file_path+'.tex')
+        if pdf_made == 0:
+            os.system("convert -density 1440 "+latex_file_path+".pdf -quality 100 -flatten -resize 20% -trim -transparent white -fuzz 10% "+latex_file_path+".png")
+            os.system("mv "+latex_file_path+".png "+img_file_path)
+            os.system("rm "+latex_file_path+"*")
 
-    if os.path.exists(os.path.join(path,"../content/images/latex-cache/"+latexFileName+".png")):
+    if os.path.exists(img_file_path):
+        # Get height:
+        im = Image.open(img_file_path)
+        w,h = im.size
+
         # We want to keep old latex in case there is a problem
-        newi = "<img class=\"latex " + className + "\" src=\"{filename}/images/latex-cache/" + latexFileName +".png\" />"
-        newi += "<!--" + orig + "-->"
-        return newi
+        new_i = "<img class=\"latex " + class_name + "\" src=\"{filename}"+src_file_path + latex_file_name +".png\" style=\"height:" + str(h/3) + "px\" />"
+        new_i += "<!--" + orig + "-->"
+        return new_i
     return ""
 
-
-# Setup our contents
-latex_head_contents = '\\documentclass[preview,12pt]{standalone}\n'
 
 # Get abs path
 fn = inspect.getframeinfo(inspect.currentframe()).filename
 path = os.path.dirname(os.path.abspath(fn))
 
-# Grab header content
-latex_head_contents += get_file_contents(os.path.join(path,"header.conf"))
 
 # Make sure we actually have the cache dir
-ensure_dir(os.path.join(path,"../content/images/latex-cache/"))
-
-
-for root, dirs, files in os.walk(os.path.join(path,"../content")):
+ensure_dir(os.path.join(path,cache_dir))
+ld = os.path.join(path,latex_content_dir)
+for root, dirs, files in os.walk(ld):
     for file in files:
         if file.endswith(".md"):
 
@@ -99,35 +115,36 @@ for root, dirs, files in os.walk(os.path.join(path,"../content")):
                 # If we have matches, we're gonna need archives
                 if matches1 or matches2:
                     matched = True
-                    backup_file(mdfilename,contents, path)
+                    #backup_file(mdfilename,contents, path)
             
                 # For every latex tag do the following
                 for i in matches1:
                     # Grab the actual latex
-                    latex = '\['+i[7:-8]+'\]'
-                    img = get_latex_img(latex, i, latex_head_contents, "block", mdfilename, path)
+                    class_name = 'block'
+                    if i[7] == '$':
+                        class_name = 'inline'
+
+                    img = get_latex_img(i[7:-8], class_name,  mdfilename, path)
                     if img:
                         # replace contents
-                        contents = re.sub(re.escape(i),img,contents, 0, re.MULTILINE)
+                        contents = re.sub(re.escape(i),img.replace('\\','\\\\'),contents, 0, re.MULTILINE)
                     else:
                         print "ERROR"
 
                 # For every latex tag do the following
                 for i in matches2:
                     # Grab the actual latex
-                    latex = '$'+i[2:-2]+'$'
-                    img = get_latex_img(latex, i, latex_head_contents, "inline", mdfilename, path)
+                    img = get_latex_img(i[1:-1], 'inline', mdfilename, path)
                     if img:
                         # replace contents
-                        contents = re.sub(re.escape(i),img,contents, 0, re.MULTILINE)
+                        contents = re.sub(re.escape(i),img.replace('\\','\\\\'),contents, 0, re.MULTILINE)
                     else:
                         print "ERROR"
 
             
                 # reopen the file and rewrite it with the new contents.
                 if matched:
-                    put_file_contents(mdfilepath,contents)
-
-
-
+                    new_root = root.replace(latex_content_dir,content_dir)
+                    new_mdfilepath = os.path.join(new_root, mdfilename)
+                    put_file_contents(new_mdfilepath,contents)
 
