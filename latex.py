@@ -87,6 +87,17 @@ def get_latex_img(latex, class_name, mdfilename, path):
 fn = inspect.getframeinfo(inspect.currentframe()).filename
 path = os.path.dirname(os.path.abspath(fn))
 
+tmp_path = os.path.join(path,"./tmp/")
+for filename in os.listdir(tmp_path):
+    file_path = os.path.join(tmp_path,filename)
+    try:
+        if os.path.isfile(file_path) or os.path.islink(file_path):
+            os.unlink(file_path)
+        elif os.path.isdir(file_path):
+            shutil.rmtree(file_path)
+    except Exception as e:
+        print('Failed to delete %s. Reason: %s' % (file_path, e))
+
 
 # Make sure we actually have the cache dir
 ensure_dir(os.path.join(path,cache_dir))

@@ -1,6 +1,6 @@
 update:
-	rm -rf ./output
 	python ./latex.py
+	rm -rf ./output
 	pelican
 
 
