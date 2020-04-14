@@ -112,50 +112,44 @@ for root, dirs, files in os.walk(ld):
             # Grab file contents
             contents = get_file_contents(mdfilepath)
             
-            
-            # Find first div. We should *always* be starting with divs*
-            cdiv = re.search("(<div.*)", contents, re.DOTALL)
-            
-            # Find all latex tags
-            if cdiv:
-                html = cdiv.group(0)
-                matches1 = re.findall(r"(<latex>.*?</latex>)",html, re.DOTALL)
-                matches2 = re.findall(r"(\$\$.*?\$\$)",html, re.DOTALL)
-                matched = False
+            matches1 = re.findall(r"(<latex>.*?</latex>)",contents, re.DOTALL)
+            matches2 = re.findall(r"(\$\$.*?\$\$)",contents, re.DOTALL)
+            matched = False
 
-                # If we have matches, we're gonna need archives
-                if matches1 or matches2:
-                    matched = True
-                    #backup_file(mdfilename,contents, path)
-            
-                # For every latex tag do the following
-                for i in matches1:
-                    # Grab the actual latex
-                    class_name = 'block'
-                    if i[7] == '$':
-                        class_name = 'inline'
+            # If we have matches, we're gonna need archives
+            if matches1 or matches2:
+                matched = True
+                #backup_file(mdfilename,contents, path)
 
-                    img = get_latex_img(i[7:-8], class_name,  mdfilename, path)
-                    if img:
-                        # replace contents
-                        contents = re.sub(re.escape(i),img.replace('\\','\\\\'),contents, 0, re.MULTILINE)
-                    else:
-                        print "ERROR"
+            # For every latex tag do the following
+            for i in matches1:
+                # Grab the actual latex
+                class_name = 'block'
+                if i[7] == '$':
+                    class_name = 'inline'
 
-                # For every latex tag do the following
-                for i in matches2:
-                    # Grab the actual latex
-                    img = get_latex_img(i[1:-1], 'inline', mdfilename, path)
-                    if img:
-                        # replace contents
-                        contents = re.sub(re.escape(i),img.replace('\\','\\\\'),contents, 0, re.MULTILINE)
-                    else:
-                        print "ERROR"
 
-            
-                # reopen the file and rewrite it with the new contents.
-                if matched:
-                    new_root = root.replace(latex_content_dir,content_dir)
-                    new_mdfilepath = os.path.join(new_root, mdfilename)
-                    put_file_contents(new_mdfilepath,contents)
+                img = get_latex_img(i[7:-8], class_name,  mdfilename, path)
+                if img:
+                    # replace contents
+                    contents = re.sub(re.escape(i),img.replace('\\','\\\\'),contents, 0, re.MULTILINE)
+                else:
+                    print "ERROR"
+
+            # For every latex tag do the following
+            for i in matches2:
+                # Grab the actual latex
+                img = get_latex_img(i[1:-1], 'inline', mdfilename, path)
+                if img:
+                    # replace contents
+                    contents = re.sub(re.escape(i),img.replace('\\','\\\\'),contents, 0, re.MULTILINE)
+                else:
+                    print "ERROR"
+
+        
+            # reopen the file and rewrite it with the new contents.
+            if matched:
+                new_root = root.replace(latex_content_dir,content_dir)
+                new_mdfilepath = os.path.join(new_root, mdfilename)
+                put_file_contents(new_mdfilepath,contents)
 

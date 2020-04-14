@@ -24,6 +24,9 @@
 }
 
 /* Default styling */
+html {
+    font-size:16px;
+}
 body {
 /*    font-size: 15px;*/
     color: #4b505a;
@@ -50,7 +53,7 @@ a:hover, a:active{
 
 a.navigate{
     background-color: rgba(0,0,0,0.5);
-    font-size: 12px;
+    font-size: 0.8125rem;
     padding-left: 4px;
     padding-right: 4px;
     min-width: 100px;
@@ -65,7 +68,7 @@ a.navigate:hover{
 }
 
 a.more{
-    font-size: 12px;
+    font-size: 0.8125rem;
     margin-top: 30px;
 }
 
@@ -76,7 +79,7 @@ dd {margin-bottom:0px;}
 pre, code {
     background: #f8f7fa;
     padding: 34px;
-    font-size: 16px;
+    font-size: 1.125rem;
     line-height: 24px;
     font-family: Consolas, monaco, monospace;
     border-radius: 0px;
@@ -96,7 +99,7 @@ code { padding: 3px 6px; }
 	padding-left:20px;
 	padding-right:0px;
 	background:#333;
-	font-size:14px;
+	font-size:1rem;
 	font-weight:400;
 	font-family:Consolas,monaco,monospace;
 	color:#fff
@@ -111,7 +114,7 @@ code { padding: 3px 6px; }
   padding-left: 40px;
   padding-right: 40px;
   background:#333; 
-  font-size: 14px;
+  font-size: 1rem;
   font-weight: 400;
   font-family: Consolas, monaco, monospace;
   color: #fff;
@@ -120,7 +123,7 @@ code { padding: 3px 6px; }
 /* Titles */
 
 h1 { 
-    font-size: 28px;
+    font-size: 2rem;
     line-height: 1.285714285714286em; 
     font-weight: 600;
     letter-spacing: 2px;
@@ -128,11 +131,11 @@ h1 {
 }
 
 h2 { 
-    font-size: 20px;
+    font-size: 1.625rem;
     line-height: 1.285714285714286em; 
     font-weight: 600;
     margin-top: 40px;   
-    margin-bottom: 40px;
+    margin-bottom: 10px;
 }
 h2:after {
     display: block;
@@ -144,11 +147,11 @@ h2:after {
 }
 
 h3 { 
-    font-size: 16px;
+    font-size: 1.25rem;
     line-height: 1.285714285714286em; 
     font-weight: 600;
     margin-top: 30px; 
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
 h3:after {
     display: block;
@@ -159,11 +162,11 @@ h3:after {
 }
 
 h4 { 
-    font-size: 12px;
+    font-size: 1rem;
     line-height: 1.285714285714286em; 
     font-weight: 600;
     margin-top: 30px; 
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     text-transform: uppercase;
 }
 h4:after {
@@ -179,7 +182,7 @@ h4:after {
     height:56px;
     line-height:40px;
     color:#fff;
-    font-size:12px;
+    font-size:0.75rem;
     font-weight:600;
 }
 .header-nav .nav{
@@ -207,7 +210,7 @@ h4:after {
     background-color: rgba(0,0,0,0.2);
 }
 .header-logo {
-    font-size:15px;
+    font-size:0.9375rem;
     font-weight:600;
     text-transform: uppercase;
 }
@@ -238,13 +241,13 @@ h4:after {
     padding: 30px 0 0px 0;
 }
 .header-title {
-    font-size: 28px;
+    font-size: 2.375rem;
     color: #fff;
     font-weight: 700;
 }
 .header-date {
     margin: 5px 0px;
-    font-size: 12px;
+    font-size: 0.75rem;
     color: #fff;
     opacity: 0.8;
 }
@@ -262,7 +265,7 @@ h4:after {
     border-bottom: 3px solid #eb2344;
 }
 .header-subtitle {
-    font-size: 14px;
+    font-size: 1rem;
     line-height: 24px;
     color: #fff;
     font-weight: 300;
@@ -271,7 +274,7 @@ h4:after {
 }
 
 .header-tags {
-    font-size: 11px;
+    font-size: 0.6875rem;
     color: #fff;
     font-style: italic;
     margin:0px;
@@ -296,7 +299,7 @@ h4:after {
 .subheader-subtitle,
 .subheader-date {
     margin: 5px 0px;
-    font-size: 12px;
+    font-size: 0.875rem;
     line-height:16px;
 }
 
@@ -309,6 +312,7 @@ h4:after {
     background-color: #fff;
     padding: 40px;
 }
+
 
 .content img{
     border: 0;
@@ -341,7 +345,7 @@ h4:after {
 }
 
 .content dt{
-    font-size: 12px;
+    font-size: 0.875rem;
     font-weight: 400;
     line-height: 24px;    
 }
@@ -360,7 +364,7 @@ h4:after {
 
 /* Menu */
 .menu{
-  font-size: 14px;
+  font-size: 1rem;
 }
 .menu h4{
     margin-top: 0px;
@@ -379,26 +383,25 @@ h4:after {
 
 /* Article */
 .article {
-    font-size: 14px;
+    font-size: 1rem;
     line-height: 24px;
 }
 
-.article h2{
-    margin-top: 0px;
-    margin-bottom: 5px;  
-}
 .article h2 a{
     color: #4b505a;
     text-decoration: None;
 }
+.article div{
+    margin-bottom: 1rem;
+}
 .article .date{
-    font-size: 12px;
+    font-size: 0.875rem;
     margin-bottom: 10px;
     opacity: 0.9;  
 }
 
 .article-tags {
-    font-size: 14px;
+    font-size: 1rem;
     font-style: italic;
     margin-top:20px;
     line-height:16px;
@@ -406,7 +409,7 @@ h4:after {
 
 /* Archives */
 .archive {
-    font-size: 14px;
+    font-size: 1rem;
     line-height: 24px;
     padding-top: 20px;
     padding-bottom: 40px;
@@ -420,14 +423,14 @@ h4:after {
     text-decoration: None;
 }
 .archive dt{
-    font-size: 12px;
+    font-size: 0.875rem;
     font-weight: 400;
     line-height: 24px;    
 }
 /* Styling */
 
 blockquote{
-    font-size: 15px;
+    font-size: 1.0625rem;
     opacity: 0.65;
 }
 /* Comments */
@@ -448,7 +451,7 @@ blockquote{
 
 .footer{
     background-color: #333;
-    font-size: 14px;
+    font-size: 1rem;
     font-weight: 300;
     text-align: left;
     color: #fff;
@@ -458,7 +461,7 @@ blockquote{
     text-transform: uppercase;
     margin-bottom: 3px;
     font-weight: 600;
-    font-size: 12px;
+    font-size: 0.75rem;
 }
 .footer-container{
     padding-top: 20px;
