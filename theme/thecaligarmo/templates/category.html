@@ -12,7 +12,7 @@
 
 
 {% block subheader %}
-    <h2 class="subheader-title text-uppercase">{{ CATEGORY_SUBHEADER_TITLE }} : {{ category|capitalize }}</h2>
+    <h2 class="subheader-title">{{ CATEGORY_SUBHEADER_TITLE }} : {{ category|capitalize }}</h2>
     {% if CATEGORY_SUBHEADER_SUBTITLE and CATEGORY_SUBHEADER_SUBTITLE != '' %}
         <p class="subheader-subtitle">{{ CATEGORY_SUBHEADER_SUBTITLE }} "{{ category|capitalize }}"</p>
     {% endif %}
@@ -20,7 +20,15 @@
 
 {% block content %}
     <div class="category">
-        <h2><a href="{{ SITEURL }}/{{ category.url }}">{{ category|capitalize }}</a></h2>
+        {% if category.subcategories %}
+            <h2>{{CATEGORY_SUBCATEGORIES_TITLE}}</h2>
+            <ul class="list-unstyled">
+            {% for subcat in category.subcategories %}
+                <li><a href="{{ SITEURL }}/{{subcat.url}}">{{subcat.shortname|capitalize}}</a></li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+        <h2>{{ CATEGORY_ARTICLES_TITLE }}</h2>
         {% include 'partials/article-list.html' %}
     </div>
 {% endblock content %}

@@ -48,6 +48,19 @@
         <!-- /Canonical -->
         {% endif %}
 
+        <style>
+            :root {
+                --background-color: {{BACKGROUND_COLOR}};
+                --main-color: {{MAIN_COLOR}};
+                --link-color: {{LINK_COLOR}};
+                --link-hover-color: {{LINK_HOVER_COLOR}};
+                --secondary-color: {{SECONDARY_COLOR}};
+                --definition-color: {{DEFINITION_COLOR}};
+                --example-color: {{EXAMPLE_COLOR}};
+                --example-border-color: {{EXAMPLE_BORDER_COLOR}};
+            }
+        </style>
+
 
         <!-- Stylesheets -->
         <link href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/bootstrap.min.css" rel="stylesheet">
@@ -78,10 +91,6 @@
             background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('{{ SITEURL }}/images/{{ HEADER_IMAGE }}');
             background-position: center;
             background-size: cover;
-        }
-        {% else %}
-        .header-container {
-            background-color:{{ HEADER_COLOR }};
         }
         {% endif %}
         {% block page_styles %}{% endblock page_styles %}
@@ -179,14 +188,14 @@
                             {% endif %}
                         {% endfor %}
                         {% if DISPLAY_PAGES_ON_MENU %}
-                        {% for pg in pages %}
-                            <a {% if pg == page %} class="nav-link active"{% endif %} href="{{ SITEURL }}/{{ pg.url }}">{{ pg.title }}</a>
-                        {% endfor %}
+                            {% for pg in pages %}
+                                <a {% if pg == page %} class="nav-link active"{% endif %} href="{{ SITEURL }}/{{ pg.url }}">{{ pg.title }}</a>
+                            {% endfor %}
                         {% endif %}
                         
                         {% if DISPLAY_CATEGORIES_ON_MENU %}
                         {% for cat, null in categories %}
-                            <a href="{{ SITEURL }}/{{ cat.url }}">{{ cat | capitalize }}</a>
+                            <a class="nav-link" href="{{ SITEURL }}/{{ cat.url }}">{{ cat | capitalize }}</a>
                         {% endfor %}
                         {% endif %}
                     </div>
@@ -236,7 +245,11 @@
                         <div class="footer-title">{{ FOOTER_LEFT_COLUMN_TITLE }}</div>
                         <ul class="list-unstyled">
                             {% for title, link in FOOTER_LEFT_MENU %}
-                            <li><a href="{{ SITEURL }}{{ link }}">{{ title }}</a></li>
+                            {% if 'http://' in link or 'https://' in link %}
+                                <li><a href="{{ link }}">{{ title }}</a></li>
+                            {% else %}
+                                <li><a href="{{ SITEURL }}{{ link }}">{{ title }}</a></li>
+                            {% endif %}
                             {% endfor %}
                             <!--
                             {% if FEED_ALL_ATOM %}
@@ -252,8 +265,12 @@
                         {% if FOOTER_MIDDLE_MENU %}
                         <div class="footer-title">{{ FOOTER_MIDDLE_COLUMN_TITLE }}</div>
                         <ul class="list-unstyled">
-                            {% for name, link in FOOTER_MIDDLE_MENU %}
-                            <li><a href="{{ link }}" target="_blank">{{name}}</a></li>
+                            {% for title, link in FOOTER_MIDDLE_MENU %}
+                            {% if 'http://' in link or 'https://' in link %}
+                                <li><a href="{{ link }}">{{ title }}</a></li>
+                            {% else %}
+                                <li><a href="{{ SITEURL }}{{ link }}">{{ title }}</a></li>
+                            {% endif %}
                             {% endfor %}
                         </ul>
                         {% endif %}
@@ -262,8 +279,12 @@
                         {% if FOOTER_RIGHT_MENU %}
                         <div class="footer-title">{{ FOOTER_RIGHT_COLUMN_TITLE }}</div>
                         <ul class="list-unstyled">
-                            {% for name, link in FOOTER_RIGHT_MENU %}
-                            <li><a href="{{ link }}" target="_blank">{{name}}</a></li>
+                            {% for title, link in FOOTER_RIGHT_MENU %}
+                            {% if 'http://' in link or 'https://' in link %}
+                                <li><a href="{{ link }}">{{ title }}</a></li>
+                            {% else %}
+                                <li><a href="{{ SITEURL }}{{ link }}">{{ title }}</a></li>
+                            {% endif %}
                             {% endfor %}
                         </ul>
                         {% endif %}

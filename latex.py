@@ -14,18 +14,10 @@ latex_content_dir = './latex/'
 content_dir = './content/'
 
 
-
-
 def ensure_dir(file_path):
     directory = os.path.dirname(file_path)
     if not os.path.exists(directory):
         os.makedirs(directory)
-
-# Make an archive
-def backup_file(filename,contents,path):
-    today = datetime.date.today()
-    tod = today.strftime("%Y.%m.%d")
-    put_file_contents(os.path.join(path,"archive/"+filename+"."+tod+".bak"),contents)
 
 def get_file_contents(file):
     f = open(file,"r")
@@ -114,12 +106,7 @@ for root, dirs, files in os.walk(ld):
             
             matches1 = re.findall(r"(<latex>.*?</latex>)",contents, re.DOTALL)
             matches2 = re.findall(r"(\$\$.*?\$\$)",contents, re.DOTALL)
-            matched = False
 
-            # If we have matches, we're gonna need archives
-            if matches1 or matches2:
-                matched = True
-                #backup_file(mdfilename,contents, path)
 
             # For every latex tag do the following
             for i in matches1:
@@ -148,8 +135,7 @@ for root, dirs, files in os.walk(ld):
 
         
             # reopen the file and rewrite it with the new contents.
-            if matched:
-                new_root = root.replace(latex_content_dir,content_dir)
-                new_mdfilepath = os.path.join(new_root, mdfilename)
-                put_file_contents(new_mdfilepath,contents)
+            new_root = root.replace(latex_content_dir,content_dir)
+            new_mdfilepath = os.path.join(new_root, mdfilename)
+            put_file_contents(new_mdfilepath,contents)
 

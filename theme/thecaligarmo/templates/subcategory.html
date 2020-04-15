@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}{{ SUBCATEGORY_HEAD_TITLE }} {{ subcategory|capitalize }} - {{ SITENAME }}{% endblock title %}
+
+{% block meta_desc %}
+    <meta name="description" content="{{ SUBCATEGORY_HEAD_DESCRIPTION|striptags }} {{subcategory|capitalize }}" />
+{% endblock meta_desc %}
+
+{% block meta_keys %}
+    <meta name="keywords" content="{{ SITETAGS|join(',')|striptags }},{{ subcategory }}" />
+{% endblock meta_keys %}
+
+
+{% block subheader %}
+    <h2 class="subheader-title text-uppercase">{{ SUBCATEGORY_SUBHEADER_TITLE }} : {{ subcategory.shortname|capitalize }}</h2>
+    {% if SUBCATEGORY_SUBHEADER_SUBTITLE and SUBCATEGORY_SUBHEADER_SUBTITLE != '' %}
+        <p class="subheader-subtitle">{{ SUBCATEGORY_SUBHEADER_SUBTITLE }} "{{ subcategory.shortname|capitalize }}"</p>
+    {% endif %}
+{% endblock subheader %}
+
+{% block content %}
+    <div class="category">
+        {% if subcategory.subcategories %}
+            <h2>{{SUBCATEGORY_SUBCATEGORIES_TITLE}}</h2>
+            <ul class="list-unstyled">
+            {% for subcat in subcategory.subcategories %}
+                <li><a href="{{ SITEURL }}/{{subcat.url}}">{{subcat.shortname|capitalize}}</a></li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+        <h2>{{ SUBCATEGORY_ARTICLES_TITLE }}</h2>
+        {% include 'partials/article-list.html' %}
+    </div>
+{% endblock content %}
