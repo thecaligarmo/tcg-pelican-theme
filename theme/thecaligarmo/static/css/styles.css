@@ -485,3 +485,7 @@ blockquote{
     padding:0px 3px 1px;
 }
 
+.references ul{
+    padding-left:0px;
+    list-style:none;
+}

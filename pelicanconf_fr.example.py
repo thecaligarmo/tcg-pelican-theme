@@ -1,5 +1,7 @@
 #!/usr/bin/env python
-SITEURL = 'http://thecaligarmo.com/pelican/output'
+
+from pelicanconf import *
+SITEURL = SITEURL + '/fr'
 
 AUTHOR_FR = u'thecaligarmo'
 SITENAME_FR = u'The Cali Garmo is Learning'

@@ -1,7 +1,11 @@
 update:
 	python ./latex.py
-	rm -rf ./output
 	pelican
+	rm *.pyc
+
+publish:
+	pelican -s publishconf.py
+	rm *.pyc
 
 
 .PHONY: update

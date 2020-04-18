@@ -1,16 +1,30 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
+import os
+
+from emojiextension import EmojiExtension
 
 
 ########################################
 # Settings
 ########################################
 
+DELETE_OUTPUT_DIRECTORY = True
+OUTPUT_PATH = '../public_html/dev/learning'
+SITEURL = 'http://thecaligarmo.com/dev/learning'
+
 
 PATH = 'content'
 TIMEZONE = 'America/Toronto'
 DEFAULT_LANG = u'en'
+MARKDOWN = {
+        'extensions' : ['extra',EmojiExtension.create_from_json('./resources/emojis.json')],
+        'extension_configs': {
+            'markdown.extensions.extra': {},
+            },
+        'output_format': 'html5',
+        }
 
 # FAVICON
 # FAVICON_IE
@@ -25,7 +39,7 @@ DEFAULT_LANG = u'en'
 #################
 DIRECT_TEMPLATES = ('index','categories','authors','archives','search')
 PLUGIN_PATHS = ['/srvrWeb/pelican/pelican-plugins']
-PLUGINS = ['i18n_subsites', 'dateish', 'tipue_search']
+PLUGINS = ['i18n_subsites', 'dateish', 'tipue_search','subcategory']
 
 #### i18n_subsites
 #### - Allows translations
@@ -48,11 +62,32 @@ GOOGLE_ANALYTICS = 'G-FSPS9B62P7'
 #### Tipue Search
 TIPUE_SEARCH = True
 
+#### Subcategories
+#PATH_METADATA= '(?P<subcategory_path>.*)/.*'
+
 #################
 # Styling
 #################
 FONT_CSS = '<link href="https://fonts.googleapis.com/css?family=Amiri&display=swap" rel="stylesheet">'
 FONT_FAMILY = "font-family: 'Amiri', serif;"
+
+#################
+# Colors
+#################
+# https://mycolor.space/
+# Use Shades
+# and
+# maketintsandshades.com
+#################
+BACKGROUND_COLOR = '#f1f6f8'
+MAIN_COLOR = '#357F9B' # Main color
+LINK_COLOR = '#357F9B'
+LINK_HOVER_COLOR = '#5399B6'
+SECONDARY_COLOR = '#A7ECFF'
+DEFINITION_COLOR = '#e5f9ff'
+EXAMPLE_COLOR = '#e5f9ff'
+EXAMPLE_BORDER_COLOR = '#75a5b3'
+
 # CUSTOM_CSS = ''
 
 #################
@@ -61,11 +96,7 @@ FONT_FAMILY = "font-family: 'Amiri', serif;"
 HEADER_TITLE = 'The Cali Garmo'
 HEADER_SUBTITLE = 'does Learning'
 HEADER_IMAGE = False
-HEADER_COLOR = '#356689'
 HEADER_LOGO = False
-
-HEADER_TITLE_FR = 'Le Cali Garmo'
-HEADER_SUBTITLE_FR = 'en train d\'apprendre'
 
 
 #################
@@ -73,6 +104,7 @@ HEADER_SUBTITLE_FR = 'en train d\'apprendre'
 #################
 FEED_ALL_ATOM = None
 CATEGORY_FEED_ATOM = None
+SUBCATEGORY_FEED_ATOM = None
 TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
@@ -85,6 +117,20 @@ DISPLAY_CATEGORIES_ON_MENU = True
 DEFAULT_PAGINATION = False
 
 
+SUBCATEGORY_SAVE_AS = '{savepath}.html'
+SUBCATEGORY_URL = '{fullurl}.html'
+
+CATEGORY_SAVE_AS = '{slug}.html'
+CATEGORY_URL = '{slug}.html'
+
+PAGE_SAVE_AS = '{slug}.html'
+PAGE_URL = '{slug}.html'
+
+ARTICLE_SAVE_AS = os.path.join('{subpath}', '{slug}.html')
+ARTICLE_URL = '{suburl}/{slug}.html'
+
+
+
 
 
 ########################################
@@ -93,14 +139,12 @@ DEFAULT_PAGINATION = False
 AUTHOR = u'thecaligarmo'
 SITENAME = u'The Cali Garmo is Learning'
 SITE_DESCRIPTION = u'The Cali Garmo is Learning. Be it Maths, Languages, or Life Lessons.'
-SITEURL = 'http://thecaligarmo.com/pelican/output'
 THEME = 'theme/thecaligarmo'
 
 #################
 # Navigation
 #################
-MENUITEMS = (('Home', SITEURL),
-             )
+MENUITEMS = (('Home', SITEURL),)
 
 #################
 # Footer
@@ -108,7 +152,7 @@ MENUITEMS = (('Home', SITEURL),
 FOOTER_LEFT_COLUMN_TITLE = 'The Cali Garmo'
 FOOTER_LEFT_MENU = (('Home','http://thecaligarmo.com/'),)
 FOOTER_MIDDLE_COLUMN_TITLE = 'Social'
-FOOTER_MIDDLE_MENU = (('IG','ig.com'),)
+FOOTER_MIDDLE_MENU = (('IG','http://instagram.com'),)
 # FOOTER_RIGHT_COLUMN_TITLE = 'Other'
 # FOOTER_RIGHT_MENU = ()
 COPYRIGHT = '&copy; 2020'
@@ -155,6 +199,14 @@ CATEGORIES_SUBHEADER_SUBTITLE = ''
 CATEGORY_HEAD_TITLE = 'Category'
 CATEGORY_SUBHEADER_TITLE = 'Category'
 CATEGORY_SUBHEADER_SUBTITLE = ''
+CATEGORY_ARTICLES_TITLE = 'Articles'
+CATEGORY_SUBCATEGORIES_TITLE = 'Subcategories'
+
+SUBCATEGORY_HEAD_TITLE = 'Category'
+SUBCATEGORY_SUBHEADER_TITLE = 'Category'
+SUBCATEGORY_SUBHEADER_SUBTITLE = ''
+SUBCATEGORY_ARTICLES_TITLE = 'Articles'
+SUBCATEGORY_SUBCATEGORIES_TITLE = 'Subcategories'
 
 INDEX_HEAD_TITLE = 'Home'
 INDEX_SUBHEADER_TITLE = 'The Cali Garmo'
