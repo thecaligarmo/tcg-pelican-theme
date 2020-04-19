@@ -39,7 +39,8 @@ MARKDOWN = {
 #################
 DIRECT_TEMPLATES = ('index','categories','authors','archives','search')
 PLUGIN_PATHS = ['/srvrWeb/pelican/pelican-plugins']
-PLUGINS = ['i18n_subsites', 'dateish', 'tipue_search','subcategory']
+PLUGINS = ['i18n_subsites', 'dateish', 'tipue_search','more_categories']#'subcategory']
+# 'liquid_tags.gram',
 
 #### i18n_subsites
 #### - Allows translations
@@ -104,7 +105,6 @@ HEADER_LOGO = False
 #################
 FEED_ALL_ATOM = None
 CATEGORY_FEED_ATOM = None
-SUBCATEGORY_FEED_ATOM = None
 TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
@@ -117,17 +117,18 @@ DISPLAY_CATEGORIES_ON_MENU = True
 DEFAULT_PAGINATION = False
 
 
-SUBCATEGORY_SAVE_AS = '{savepath}.html'
-SUBCATEGORY_URL = '{fullurl}.html'
-
 CATEGORY_SAVE_AS = '{slug}.html'
 CATEGORY_URL = '{slug}.html'
 
 PAGE_SAVE_AS = '{slug}.html'
 PAGE_URL = '{slug}.html'
+PAGE_LANG_SAVE_AS = '{slug}.html'
+PAGE_LANG_URL = '{slug}.html'
 
-ARTICLE_SAVE_AS = os.path.join('{subpath}', '{slug}.html')
-ARTICLE_URL = '{suburl}/{slug}.html'
+ARTICLE_SAVE_AS = os.path.join('{category}', '{slug}.html')
+ARTICLE_URL = '{category}/{slug}.html'
+ARTICLE_LANG_SAVE_AS = os.path.join('{category}', '{slug}.html')
+ARTICLE_LANG_URL = '{category}/{slug}.html'
 
 
 
@@ -201,12 +202,6 @@ CATEGORY_SUBHEADER_TITLE = 'Category'
 CATEGORY_SUBHEADER_SUBTITLE = ''
 CATEGORY_ARTICLES_TITLE = 'Articles'
 CATEGORY_SUBCATEGORIES_TITLE = 'Subcategories'
-
-SUBCATEGORY_HEAD_TITLE = 'Category'
-SUBCATEGORY_SUBHEADER_TITLE = 'Category'
-SUBCATEGORY_SUBHEADER_SUBTITLE = ''
-SUBCATEGORY_ARTICLES_TITLE = 'Articles'
-SUBCATEGORY_SUBCATEGORIES_TITLE = 'Subcategories'
 
 INDEX_HEAD_TITLE = 'Home'
 INDEX_SUBHEADER_TITLE = 'The Cali Garmo'

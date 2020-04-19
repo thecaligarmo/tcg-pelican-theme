@@ -15,4 +15,9 @@ DELETE_OUTPUT_DIRECTORY = True
 OUTPUT_PATH = '../public_html/learning'
 SITEURL = 'http://thecaligarmo.com/learning'
 
+
 MENUITEMS = (('Home', SITEURL),)
+
+MENUITEMS_FR = (('Acceuil', 'http://thecaligarmo.com/learning/fr'),)
+
+I18N_SUBSITES['fr']['MENUITEMS'] = MENUITEMS_FR
