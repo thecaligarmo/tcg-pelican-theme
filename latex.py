@@ -69,7 +69,7 @@ def get_latex_img(latex, class_name, mdfilename, path):
         w,h = im.size
 
         # We want to keep old latex in case there is a problem
-        new_i = "<img class=\"latex " + class_name + "\" src=\"{filename}"+src_file_path + latex_file_name +".png\" style=\"height:" + str(h/3) + "px\" />"
+        new_i = "<img class=\"latex " + class_name + "\" src=\"{static}"+src_file_path + latex_file_name +".png\" style=\"height:" + str(h/3) + "px\" />"
         new_i += "<!--" + orig + "-->"
         return new_i
     return ""

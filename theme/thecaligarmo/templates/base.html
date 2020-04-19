@@ -179,7 +179,14 @@
 
                 <!-- Static navbar -->            
                 <div class="header-nav">
-                    <div class="nav float-left">
+                    {% if 'tipue_search' in PLUGINS and TIPUE_SEARCH%}
+                        <div class="float-right" id="tipue-search">
+                            <form class="navbar-search" action="{{SITEURL}}{{ SEARCH_URL | default('/search.html') }}">
+                                <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
+                            </form>
+                        </div>
+                    {% endif %}
+                    <div class="nav">
                         {% for title, link in MENUITEMS %}
                             {% if 'http://' in link or 'https://' in link %}
                                 <a class="nav-link" href="{{ link }}">{{ title }}</a>
@@ -194,18 +201,20 @@
                         {% endif %}
                         
                         {% if DISPLAY_CATEGORIES_ON_MENU %}
-                        {% for cat, null in categories %}
-                            <a class="nav-link" href="{{ SITEURL }}/{{ cat.url }}">{{ cat | capitalize }}</a>
-                        {% endfor %}
+                            {% for cat, null in categories %}
+                                {% if not cat.ancestors[1] %}
+                                    <div class="subnav">
+                                        <a class="nav-link" href="{{ SITEURL }}/{{ cat.url }}">{{ cat | capitalize }}</a>
+                                        <div class="subnav-content">
+                                        {% for subcat in cat.subcategories %}
+                                            <a class="subnav-link" href="{{ SITEURL }}/{{ subcat.url}}">{{ subcat.shortname | capitalize }}</a>
+                                        {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
                         {% endif %}
                     </div>
-                    {% if 'tipue_search' in PLUGINS and TIPUE_SEARCH%}
-                        <div class="float-right" id="tipue-search">
-                            <form class="navbar-search" action="{{SITEURL}}{{ SEARCH_URL | default('/search.html') }}">
-                                <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
-                            </form>
-                        </div>
-                    {% endif %}
                 </div>
             </div>
             <!-- /Static navbar -->
