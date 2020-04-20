@@ -2,7 +2,7 @@
 <!-- /Navigation -->
 <div class="container navigation">
 	{% if articles_page.has_previous() %}
-    	<a class="navigate pull-left" href="{{ SITEURL }}/{{ articles_previous_page.url }}"><i class="fa fa-caret-left"></i> {{ PAGINATION_PREVIOUS }}</a>
+    	<a class="navigate float-left" href="{{ SITEURL }}/{{ articles_previous_page.url }}"><i class="fa fa-caret-left"></i> {{ PAGINATION_PREVIOUS }}</a>
     {% endif %}
     {% if articles_page.has_next() %}
     	<a class="navigate float-right" href="{{ SITEURL }}/{{ articles_next_page.url }}">{{ PAGINATION_NEXT }} <i class="fa fa-caret-right"></i></a>
