@@ -141,7 +141,7 @@ import sys
 sys.path.append('.')
 from textconf import *
 
-from pelicanconf_fr import SUBSITE_FR
+from fr_langconf import SUBSITE_FR
 
 I18N_SUBSITES = {
         'fr': SUBSITE_FR
