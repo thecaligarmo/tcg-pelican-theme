@@ -3,7 +3,8 @@ content/*
 latex/*
 latex/archive/*
 pelicanconf.py
-pelicanconf_fr.py
+*langconf.py
 publishconf.py
+textconf.py
 *.pyc
 header.conf
