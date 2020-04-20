@@ -5,9 +5,9 @@ PELICANOPTS=
 BASEDIR=$(CURDIR)
 INPUTDIR=$(BASEDIR)/content
 CONFFILE=$(BASEDIR)/pelicanconf.py
-OUTPUTDIR=$(BASEDIR)/../public_html/dev/learning
+OUTPUTDIR=$(BASEDIR)/../public_html/dev/pelican
 PUBLISHCONF=$(BASEDIR)/publishconf.py
-PUBLISHDIR=$(BASEDIR)/../public-html/learning
+PUBLISHDIR=$(BASEDIR)/../public_html/dev/pelican
 
 
 DEBUG ?= 0
