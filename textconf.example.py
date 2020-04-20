@@ -1,0 +1,89 @@
+########################################
+# Text - Can alter for languages
+########################################
+
+
+#################
+# Site
+#################
+SITENAME = u'The Cali Garmo is Learning'
+SITE_DESCRIPTION = u'The Cali Garmo is Learning. Be it Maths, Languages, or Life Lessons.'
+
+#################
+# Header
+#################
+HEADER_TITLE = 'The Cali Garmo'
+HEADER_SUBTITLE = 'tests pelican'
+
+#################
+# Footer
+#################
+FOOTER_LEFT_COLUMN_TITLE = 'The Cali Garmo'
+FOOTER_MIDDLE_COLUMN_TITLE = 'Social'
+# FOOTER_RIGHT_COLUMN_TITLE = 'Other'
+
+#################
+# Page specific
+#################
+ARCHIVES_HEAD_TITLE = 'Archives'
+ARCHIVES_HEAD_DESCRIPTION = 'Archives'
+ARCHIVES_SUBHEADER_IMAGE = False
+ARCHIVES_SUBHEADER_TITLE = 'Archives'
+ARCHIVES_SUBHEADER_SUBTITLE = 'Where the past resides'
+ARCHIVES_CONTENT_TITLE = 'Content'
+
+ARTICLE_SUBHEADER_BY = 'By'
+ARTICLE_SUBHEADER_PUBLISHED = 'Published on'
+ARTICLE_SUBHEADER_MODIFIED = 'Last modified'
+ARTICLE_SUBHEADER_IN = 'Category:'
+ARTICLE_RELATED_POSTS_TITLE = 'Related Posts'
+COMMENT_TITLE = 'Comments'
+
+AUTHOR_HEAD_TITLE = 'Author'
+AUTHOR_HEAD_DESCRIPTION = 'Author'
+AUTHOR_SUBHEADER_SUBTITLE = 'Author'
+AUTHOR_CONTENT_TITLE = 'Articles by '
+
+AUTHORS_HEAD_TITLE = 'Authors'
+AUTHORS_HEAD_DESCRIPTION = 'Authors'
+AUTHORS_SUBHEADER_TITLE = 'Authors'
+AUTHORS_SUBHEADER_SUBTITLE = ''
+
+CATEGORIES_HEAD_TITLE = 'Categories'
+CATEGORIES_HEAD_DESCRIPTION = 'Categories'
+CATEGORIES_SUBHEADER_TITLE = 'Categories'
+CATEGORIES_SUBHEADER_SUBTITLE = ''
+
+CATEGORY_HEAD_TITLE = 'Category'
+CATEGORY_SUBHEADER_TITLE = 'Category'
+CATEGORY_SUBHEADER_SUBTITLE = ''
+CATEGORY_ARTICLES_TITLE = 'Articles'
+CATEGORY_SUBCATEGORIES_TITLE = 'Subcategories'
+
+INDEX_HEAD_TITLE = 'Home'
+INDEX_SUBHEADER_TITLE = 'The Cali Garmo'
+INDEX_SUBHEADER_SUBTITLE = ''
+INDEX_CONTENT_TITLE = 'Articles'
+
+PERIOD_ARCHIVES_HEAD_TITLE = 'Period Archives'
+PERIOD_ARCHIVES_HEAD_DESCRIPTION = 'Period Archives'
+PERIOD_ARCHIVES_SUBHEADER_TITLE = 'Period Archives'
+PERIOD_ARCHIVES_SUBHEADER_SUBTITLE = ''
+PERIOD_ARCHIVES_CONTENT_TITLE = 'Content'
+
+SEARCH_HEAD_TITLE = 'Search'
+SEARCH_SUBHEADER_TITLE = 'Search'
+SEARCH_SUBHEADER_SUBTITLE = ''
+
+TAG_HEAD_TITLE = 'Tag'
+TAG_HEAD_DESCRIPTION = 'Tag'
+TAG_SUBHEADER_TITLE = 'Tag'
+TAG_SUBHEADER_SUBTITLE = ''
+TAG_CONTENT_TITLE = 'Articles tagged with'
+
+TAGS_HEAD_TITLE = 'Tags'
+TAGS_HEAD_DESCRIPTION = 'Tags'
+TAGS_SUBHEADER_TITLE = 'Tags'
+TAGS_SUBHEADER_SUBTITLE = ''
+TAGS_CONTENT_TITLE = 'Tag'
+TAGS_CONTENT_LIST = ''
