@@ -6,5 +6,6 @@ pelicanconf.py
 *langconf.py
 publishconf.py
 textconf.py
+Makefile
 *.pyc
 header.conf
