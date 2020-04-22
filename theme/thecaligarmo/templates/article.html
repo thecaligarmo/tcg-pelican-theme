@@ -46,10 +46,7 @@
         {% if ARTICLE_SUBHEADER_PUBLISHED %}, {{ ARTICLE_SUBHEADER_PUBLISHED }} {{ article.locale_date }}{% endif %}{% if article.modified %}, {{ ARTICLE_SUBHEADER_MODIFIED }} {{ article.locale_modified }}{% endif %}
         <br>
         {{ ARTICLE_SUBHEADER_IN }}
-            <a href="{{ SITEURL }}/{{ category.url }}">{{ article.category|capitalize }}</a>
-            {% for subcategory in article.subcategories %}
-            &mdash; <a href="{{ SITEURL }}/{{ subcategory.url }}">{{ subcategory.shortname|capitalize }}</a>
-            {% endfor %}
+            <a href="{{ SITEURL }}/{{ category.url }}">{{ article.category.shortname|capitalize }}</a>
     </p>
 {% endblock subheader %}
 
