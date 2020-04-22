@@ -19,10 +19,11 @@
 
 {% block content %}
     <div class="categories">
+        <ul class="list-unstyled">
     	{% for category, articles in categories %}
-            <h3><a href="{{ SITEURL }}/{{ category.url }}">{{ category|capitalize }}</a></h3>
-            {% include 'partials/article-list.html' %}
+            <li><a href="{{ SITEURL }}/{{ category.url }}">{{ category|capitalize }}</a></li>
         {% endfor %}
+        </ul>
     </div>
 {% endblock content %}
 

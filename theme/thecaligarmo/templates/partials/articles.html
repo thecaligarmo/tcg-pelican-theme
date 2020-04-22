@@ -1,0 +1,11 @@
+{% if DEFAULT_PAGINATION and articles_page %}    
+    <dl class="row">
+        {% for article in articles_page.object_list %}
+        <dt class="text-right col-3">{{ article.locale_date}}</dt>
+        <dd class="col-9"><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></dd>
+        {% endfor %}
+    </dl>
+    {% include 'partials/pagination.html' %}
+{% else %}
+        {% include 'partials/article-list.html' %}
+{% endif %}

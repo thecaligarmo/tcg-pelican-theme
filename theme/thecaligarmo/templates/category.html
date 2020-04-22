@@ -28,7 +28,7 @@
             {% endfor %}
             </ul>
         {% endif %}
-        <h2>{{ CATEGORY_ARTICLES_TITLE }}</h2>
-        {% include 'partials/article-list.html' %}
+        <h2>{{ CATEGORY_ARTICLES_TITLE }} {% if articles_page and articles_page.has_previous() %}<small>- page {{ articles_page.number }}</small>{% endif %}</h2>
+        {% include 'partials/articles.html' %}
     </div>
 {% endblock content %}

@@ -19,9 +19,10 @@
 
 {% block content %}
     <div class="authors">
+        <ul class="list-unstyled">
     	{% for author, articles in authors|sort %}
-        <h2><a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a></h2>
-        {% include 'partials/article-list.html' %}
+            <li><a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a></li>
         {% endfor %}
+        <ul>
     </div>
 {% endblock content %}
