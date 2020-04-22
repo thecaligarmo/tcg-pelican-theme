@@ -20,7 +20,7 @@
 
 {% block content %}
     <div class="author">
-        <h2>{{ AUTHOR_CONTENT_TITLE }}_{{ author }} {% if articles_page and articles_page.has_previous() %}<small>- page {{ articles_page.number }}</small>{% endif %}</h2>
+        <h2>{{ AUTHOR_CONTENT_TITLE }}: {{ author }} {% if articles_page and articles_page.has_previous() %}<small>- page {{ articles_page.number }}</small>{% endif %}</h2>
         {% include 'partials/articles.html' %}
     </div>
 {% endblock content %}
