@@ -7,6 +7,18 @@
     {% if INDEX_SUBHEADER_SUBTITLE and INDEX_SUBHEADER_SUBTITLE != '' %}
         <p class="subheader-subtitle">{{ INDEX_SUBHEADER_SUBTITLE }}</p>
     {% endif %}
+    {% if FEATURED_ARTICLES %}
+        <div id="featured_articles">
+            <h4>{{ FEATURED_ARTICLES_TITLE }}</h4>
+            <ul class="list-unstyled">
+            {% for art in articles %}
+                {% if art.slug in FEATURED_ARTICLES %}
+                    <li><a href="{{ SITEURL }}/{{ art.url }}">{{ art.title }}</a></li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
 {% endblock subheader %}
 
 {% block content %}
