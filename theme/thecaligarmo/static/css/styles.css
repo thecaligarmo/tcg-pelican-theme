@@ -326,8 +326,6 @@ h4:after {
 .content img{
     border: 0;
     display: block;
-    width: 100%;
-    height: auto;
     margin-left: auto;
     margin-right: auto;
     margin-top: 45px;
