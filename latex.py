@@ -39,20 +39,20 @@ def put_file_contents(file, contents, mode="w"):
     f.close()
 
 
-def get_latex_img(latex, class_name, mdfilename, path):
+def get_latex_img(latex, class_name, mdfilename, path, head_contents):
     orig = latex
 
     # Grab header content
     latex_head_contents = '\\documentclass[preview, 12pt]{standalone}\n'
-    latex_head_contents += get_file_contents(os.path.join(path, "header.conf"))
+    latex_head_contents += head_contents
 
     # setup contents
     latex_contents = latex_head_contents + '\\begin{document}\n'
     latex_contents += latex
-    latex_contents += '\\end{document}\n'
+    latex_contents += '~\\end{document}\n'
 
     # Create hash for the latex filename
-    latex_file_name = mdfilename + hashlib.md5(latex_contents.encode('utf-8')).hexdigest()
+    latex_file_name = mdfilename + hashlib.md5(latex.encode('utf-8')).hexdigest()
     img_file_path = os.path.join(path, cache_dir+latex_file_name+".png")
     tmp_path = os.path.join(path, "./tmp/")
     latex_file_path = tmp_path+latex_file_name
@@ -73,8 +73,10 @@ def get_latex_img(latex, class_name, mdfilename, path):
             convert_options += "-fuzz 10% "
             os.system("convert -density 1440 " + latex_file_path + ".pdf "
                       + convert_options + latex_file_path+".png")
+            print("convert -density 1440 " + latex_file_path + ".pdf " + convert_options + latex_file_path + ".png")
             os.system("mv " + latex_file_path+".png " + img_file_path)
-            os.system("rm " + latex_file_path + "*")
+            if os.path.exists(img_file_path):
+                os.system("rm " + latex_file_path + "*")
 
     if os.path.exists(img_file_path):
         # Get height:
@@ -111,6 +113,7 @@ for filename in os.listdir(tmp_path):
 # Make sure we actually have the cache dir
 ensure_dir(os.path.join(path, cache_dir))
 ld = os.path.join(path, latex_content_dir)
+latex_head = get_file_contents(os.path.join(path, "header.conf"))
 for root, dirs, files in os.walk(ld):
     for file in files:
         if file.endswith(".md"):
@@ -123,6 +126,17 @@ for root, dirs, files in os.walk(ld):
 
             matches1 = re.findall(r"(<latex>.*?</latex>)", contents, re.DOTALL)
             matches2 = re.findall(r"(\$\$.*?\$\$)", contents, re.DOTALL)
+            matches3 = re.findall(r"(<preamble>.*?</preamble>)", contents, re.DOTALL)
+
+            for i in matches3:
+                latex_head += i[10:-11]
+                contents = re.sub(
+                        re.escape(i),
+                        '',
+                        contents,
+                        0,
+                        re.MULTILINE
+                    )
 
             # For every latex tag do the following
             for i in matches1:
@@ -131,7 +145,7 @@ for root, dirs, files in os.walk(ld):
                 if i[7] == '$':
                     class_name = 'inline'
 
-                img = get_latex_img(i[7:-8], class_name,  mdfilename, path)
+                img = get_latex_img(i[7:-8], class_name,  mdfilename, path, latex_head)
                 if img:
                     # replace contents
                     contents = re.sub(
@@ -147,7 +161,7 @@ for root, dirs, files in os.walk(ld):
             # For every latex tag do the following
             for i in matches2:
                 # Grab the actual latex
-                img = get_latex_img(i[1:-1], 'inline', mdfilename, path)
+                img = get_latex_img(i[1:-1], 'inline', mdfilename, path, latex_head)
                 if img:
                     # replace contents
                     contents = re.sub(
