@@ -87,11 +87,11 @@
 
         <style>
         {% if HEADER_IMAGE %}
-        .header-container {
-            background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('{{ SITEURL }}/images/{{ HEADER_IMAGE }}');
-            background-position: center;
-            background-size: cover;
-        }
+            .header-container {
+                background-image: url('{{ SITEURL }}/images/{{ HEADER_IMAGE }}');
+                background-position: center;
+                background-size: cover;
+            }
         {% endif %}
         {% block page_styles %}{% endblock page_styles %}
         </style>
