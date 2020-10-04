@@ -14,7 +14,7 @@
 
 {% block content %}
     <div class="tag">
-        <h2><a href="{{ SITEURL }}/{{ tag.url }}">{{ TAG_CONTENT_TITLE }} {{ tag }}</a></h2>
-        {% include 'partials/article-list.html' %}
+        <h2>{{ TAG_CONTENT_TITLE }}: {{ tag }} {% if articles_page and articles_page.has_previous() %}<small>- page {{ articles_page.number }}</small>{% endif %}</h2>
+        {% include 'partials/articles.html' %}
     </div>
 {% endblock content %}

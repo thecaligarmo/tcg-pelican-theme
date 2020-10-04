@@ -18,14 +18,23 @@ TIMEZONE = 'America/Toronto'
 DEFAULT_LANG = u'en'
 
 MARKDOWN = {
-        'extensions' : ['extra',EmojiExtension.create_from_json('./resources/emojis.json')],
+        'extensions' : [
+            'extra',
+            EmojiExtension.create_from_json('./resources/emojis.json')
+            ],
         'extension_configs': {
             'markdown.extensions.extra': {},
             },
         'output_format': 'html5',
         }
 
-# FAVICON
+STATIC_PATHS = ['images', 'css', 'js']
+
+# FAVICON = 'images/favicon.ico'
+# FAVICON16
+# FAVICON32
+# FAVICON48
+# FAVICON96
 # FAVICON_IE
 # TOUCHICON
 
@@ -36,9 +45,9 @@ MARKDOWN = {
 #################
 # Plugins
 #################
-DIRECT_TEMPLATES = ('index','categories','authors','archives','search')
+DIRECT_TEMPLATES = ('index', 'categories', 'authors', 'archives', 'search')
 PLUGIN_PATHS = ['/srvrWeb/pelican/pelican-plugins']
-PLUGINS = ['i18n_subsites', 'dateish', 'tipue_search','more_categories']#'subcategory']
+PLUGINS = ['i18n_subsites', 'dateish', 'tipue_search','pelican.plugins.more_categories']
 # 'liquid_tags.gram',
 
 #### i18n_subsites
@@ -53,7 +62,7 @@ I18N_UNTRANSLATED_PAGES = 'keep'
 # DATEISH_PROPERTIES = []
 
 #### Google Analytics
-GOOGLE_ANALYTICS = 'G-FSPS9B62P7'
+# GOOGLE_ANALYTICS = 'G-FSPS9B62P7'
 
 #### Disqus
 #DISQUS_SITENAME = ''
@@ -108,7 +117,6 @@ AUTHOR_FEED_RSS = None
 MENUITEMS = (('Home', SITEURL),)
 DISPLAY_PAGES_ON_MENU = True
 DISPLAY_CATEGORIES_ON_MENU = True
-DEFAULT_PAGINATION = False
 
 CATEGORY_SAVE_AS = '{slug}.html'
 CATEGORY_URL = '{slug}.html'
@@ -134,8 +142,10 @@ COPYRIGHT = '&copy; 2020'
 #################
 # Pagination
 #################
-#PAGINATION_PREVIOUS = ''
-#PAGINATION_NEXT = ''
+DEFAULT_PAGINATION = False
+#DEFAULT_PAGINATION = 10
+#PAGINATION_PREVIOUS = '<'
+#PAGINATION_NEXT = '>'
 
 import sys
 sys.path.append('.')

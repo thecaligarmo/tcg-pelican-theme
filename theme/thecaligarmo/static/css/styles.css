@@ -179,17 +179,21 @@ h4:after {
     color:#fff;
     font-size:0.75rem;
     font-weight:600;
-}
-.header-nav .nav{
     position:relative;
 }
-.header-nav .nav a{
+.header-nav .nav a {
     font-weight:600;
     color:#fff;
     text-decoration:none;
     padding:8px;
     transition: all 0.2s ease-out;
 }
+
+.nav ul {
+    list-style: none;
+    z-index: 2;
+}
+
 .header-nav .nav a:hover{
     color:#fff;
     font-weight:600;
@@ -202,18 +206,34 @@ h4:after {
     background-color: rgba(0,0,0,0.2);
 }
 
-.subnav {
+.nav li {
+    display: block;
+    position:relative;
 }
-.subnav .subnav-content {
+
+.nav .subnav-content {
     display:none;
     float:left;
     position:absolute;
     top:56px;
     left:0px;
     background: var(--main-color);
+    width:125px;
+    padding-left: 0px;
 }
 
-.subnav:hover .subnav-content{
+
+.subnav-content.subsubnav {
+    top: 0px;
+    left: 125px;
+}
+
+.subnav-content.subsubsubnav {
+    top:0px;
+    left: 125px;
+}
+
+.nav li:hover > .subnav-content {
     display:block;
 }
 
@@ -327,8 +347,6 @@ h4:after {
 .content img{
     border: 0;
     display: block;
-    width: 100%;
-    height: auto;
     margin-left: auto;
     margin-right: auto;
     margin-top: 45px;

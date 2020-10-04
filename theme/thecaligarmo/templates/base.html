@@ -21,7 +21,19 @@
         {% endblock meta %}
 
         {% if FAVICON %}
-            <link rel="icon" href="{{ SITEURL }}/favicon.ico">
+            <link rel="icon" href="{{ SITEURL }}/{{ FAVICON }}">
+        {% endif %}
+        {% if FAVICON16 %}
+            <link rel="icon" type="image/png" sizes="16x16" href="{{ SITEURL }}/{{ FAVICON16 }}">
+        {% endif %}
+        {% if FAVICON32 %}
+            <link rel="icon" type="image/png" sizes="32x32" href="{{ SITEURL }}/{{ FAVICON32 }}">
+        {% endif %}
+        {% if FAVICON48 %}
+            <link rel="icon" type="image/png" sizes="48x48" href="{{ SITEURL }}/{{ FAVICON48 }}">
+        {% endif %}
+        {% if FAVICON96 %}
+            <link rel="icon" type="image/png" sizes="96x96" href="{{ SITEURL }}/{{ FAVICON96 }}">
         {% endif %}
         {% if FAVICON_IE %}
             <!--[if IE]><link rel="shortcut icon" href="{{ SITEURL }}/{{ FAVICON_IE }}"><![endif]-->
@@ -137,6 +149,13 @@
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
 
+
+        <!-- Javascript -->
+        <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/jquery.min.js"></script>
+        {% if CUSTOM_JS %}
+            <script src="{{ SITEURL }}/{{ CUSTOM_JS }}"></script>
+        {% endif %}
+
         {% if GOOGLE_ANALYTICS %}
         {% include 'partials/google-analytics.html' %}
         {% endif %}
@@ -144,6 +163,7 @@
         {% if PIWIK_URL and PIWIK_SITE_ID %}
         {% include 'partials/piwik.html' %}
         {% endif %}
+        <!-- /Javascript -->
 
     </head>
 
@@ -186,35 +206,52 @@
                             </form>
                         </div>
                     {% endif %}
-                    <div class="nav">
+                    <ul class="nav">
+
                         {% for title, link in MENUITEMS %}
                             {% if 'http://' in link or 'https://' in link %}
-                                <a class="nav-link" href="{{ link }}">{{ title }}</a>
+                                <li><a class="nav-link" href="{{ link }}">{{ title }}</a></li>
                             {% else %}
-                                <a class="nav-link" href="{{ SITEURL }}{{ link }}">{{ title }}</a>
+                                <li><a class="nav-link" href="{{ SITEURL }}{{ link }}">{{ title }}</a></li>
                             {% endif %}
                         {% endfor %}
+
                         {% if DISPLAY_PAGES_ON_MENU %}
                             {% for pg in pages %}
-                                <a {% if pg == page %} class="nav-link active"{% endif %} href="{{ SITEURL }}/{{ pg.url }}">{{ pg.title }}</a>
+                                <li><a class="nav-link{% if pg == page %} active{% endif %}" href="{{ SITEURL }}/{{ pg.url }}">{{ pg.title }}</a></li>
                             {% endfor %}
                         {% endif %}
                         
                         {% if DISPLAY_CATEGORIES_ON_MENU %}
                             {% for cat, null in categories %}
                                 {% if not cat.ancestors[1] %}
-                                    <div class="subnav">
-                                        <a class="nav-link" href="{{ SITEURL }}/{{ cat.url }}">{{ cat | capitalize }}</a>
-                                        <div class="subnav-content">
-                                        {% for subcat in cat.subcategories %}
-                                            <a class="subnav-link" href="{{ SITEURL }}/{{ subcat.url}}">{{ subcat.shortname | capitalize }}</a>
-                                        {% endfor %}
-                                        </div>
-                                    </div>
+                                    <li><a class="nav-link" href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a>
+                                    <ul class="subnav-content subnav">
+                                    {% for subcat in cat.children %}
+                                        <li><a class="subnav-link nav-link" href="{{ SITEURL }}/{{ subcat.url}}">{{ subcat.shortname }}</a>
+                                        {% if subcat.children %}
+                                            <ul class="subnav-content subsubnav">
+                                                {% for subsubcat in subcat.children %}
+                                                     <li><a class="subsubnav-link nav-link" href="{{ SITEURL }}/{{ subsubcat.url}}">{{ subsubcat.shortname }}</a>
+                                                    {% if subsubcat.children %}
+                                                        <ul class="subnav-content subsubsubnav">
+                                                            {% for subsubsubcat in subsubcat.children %}
+                                                                <li><a class="subnav-link nav-link" href="{{ SITEURL }}/{{ subsubsubcat.url }}">{{ subsubsubcat.shortname }}</a></li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    {% endif %}
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                        </li>
+                                    {% endfor %}
+                                    </ul>
+                                    </li>
                                 {% endif %}
                             {% endfor %}
                         {% endif %}
-                    </div>
+                    </ul>
                 </div>
             </div>
             <!-- /Static navbar -->
@@ -302,7 +339,7 @@
                         <p class="float-right text-right">
                             <small><em>Proudly powered by <a href="http://docs.getpelican.com/" target="_blank">pelican</a></em></small><br/>
                             <small><em>Theme and code based off <a href="https://github.com/molivier" target="_blank">molivier</a></em></small><br/>
-                            <small>{{ COPYRIGHT }}</small>
+                            <small>The Cali Garmo {{ COPYRIGHT }}</small>
                         </p>
                     </div>
                 </div>
