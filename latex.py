@@ -11,10 +11,10 @@ import re
 from PIL import Image
 
 
-# Must start with ./ and end with /
-cache_dir = './content/images/latex-cache/'
-latex_content_dir = './latex/'
-content_dir = './content/'
+# Must end with /
+cache_dir = '../data/content/images/latex-cache/'
+latex_content_dir = '../data/latex/'
+content_dir = '../data/content/'
 
 
 def ensure_dir(file_path):
@@ -55,8 +55,8 @@ def get_latex_img(latex, class_name, mdfilename, path, head_contents):
     latex_file_name = mdfilename + hashlib.md5(latex.encode('utf-8')).hexdigest()
     img_file_path = os.path.join(path, cache_dir+latex_file_name+".png")
     tmp_path = os.path.join(path, "./tmp/")
-    latex_file_path = tmp_path+latex_file_name
-    src_file_path = cache_dir.replace('./content', '')
+    latex_file_path = tmp_path + latex_file_name
+    src_file_path = re.sub(r'.*content', '', cache_dir)
 
     if not os.path.exists(img_file_path):
         put_file_contents(latex_file_path+'.tex', latex_contents)
