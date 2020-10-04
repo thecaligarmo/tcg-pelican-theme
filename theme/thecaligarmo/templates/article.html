@@ -42,11 +42,18 @@
 {% block subheader %}
     <h2 class="subheader-title">{{ article.title }}</h2>
     <p class="subheader-date">
-        {{ ARTICLE_SUBHEADER_BY }} {% for author in article.authors %}<a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
+        {{ ARTICLE_SUBHEADER_BY }}
+        {% for author in article.authors %}
+            <a href="{{ SITEURL }}/{{ author|replace(" ","-")|lower }}.html">{{ author }}</a>
+            {% if not loop.last %}, {% endif %}
+        {% endfor %}
         {% if ARTICLE_SUBHEADER_PUBLISHED %}, {{ ARTICLE_SUBHEADER_PUBLISHED }} {{ article.locale_date }}{% endif %}{% if article.modified %}, {{ ARTICLE_SUBHEADER_MODIFIED }} {{ article.locale_modified }}{% endif %}
         <br>
         {{ ARTICLE_SUBHEADER_IN }}
-            <a href="{{ SITEURL }}/{{ category.url }}">{{ article.category.shortname|capitalize }}</a>
+            {% for cat in article.category.ancestors or [article.category] %}
+                <a href="{{ SITEURL }}/{{ cat.url }}">{{ cat.shortname or cat }}</a>
+                {{ '/' if not loop.last }}
+            {% endfor %}
     </p>
 {% endblock subheader %}
 

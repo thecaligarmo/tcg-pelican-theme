@@ -12,7 +12,12 @@
 
 
 {% block subheader %}
-    <h2 class="subheader-title">{{ CATEGORY_SUBHEADER_TITLE }} : {{ category.shortname|capitalize }}</h2>
+    {% if CATEGORY_SUBHEADER_TITLE and CATEGORY_SUBHEADER_TITLE != '' %}
+        <h2 class="subheader-title">{{ CATEGORY_SUBHEADER_TITLE }} : {{ category.shortname|capitalize }}</h2>
+    {% else %}
+        <h2 class="subheader-title">{{ category.shortname|capitalize }}</h2>
+    {% endif %}
+
     {% if CATEGORY_SUBHEADER_SUBTITLE and CATEGORY_SUBHEADER_SUBTITLE != '' %}
         <p class="subheader-subtitle">{{ CATEGORY_SUBHEADER_SUBTITLE }} "{{ category.shortname|capitalize }}"</p>
     {% endif %}
@@ -20,13 +25,28 @@
 
 {% block content %}
     <div class="category">
-        {% if category.subcategories %}
+        {% if category.children %}
             <h2>{{CATEGORY_SUBCATEGORIES_TITLE}}</h2>
-            <ul class="list-unstyled">
-            {% for subcat in category.subcategories %}
-                <li><a href="{{ SITEURL }}/{{subcat.url}}">{{subcat.shortname|capitalize}}</a></li>
-            {% endfor %}
-            </ul>
+            {% if CATEGORY_WITH_SUBS %}
+                {% for subcat in category.children %}
+                    {% if subcat.children %}
+                        <h4><a href="{{ SITEURL }}/{{subcat.url}}">{{subcat.shortname|capitalize}}</a></h4>
+                        <ul class="list-unstyled">
+                        {% for subsubcat in subcat.children %}
+                            <li><a href="{{ SITEURL }}/{{subsubcat.url}}">{{subsubcat.shortname|capitalize}}</a></li>
+                        {% endfor %}
+                        </ul>
+                    {% else %}
+                        <h5><a href="{{ SITEURL }}/{{subcat.url}}">{{subcat.shortname|capitalize}}</a></h5>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <ul class="list-unstyled">
+                {% for subcat in category.children %}
+                    <li><a href="{{ SITEURL }}/{{subcat.url}}">{{subcat.shortname|capitalize}}</a></li>
+                {% endfor %}
+                </ul>
+            {% endif %}
         {% endif %}
         <h2>{{ CATEGORY_ARTICLES_TITLE }} {% if articles_page and articles_page.has_previous() %}<small>- page {{ articles_page.number }}</small>{% endif %}</h2>
         {% include 'partials/articles.html' %}
