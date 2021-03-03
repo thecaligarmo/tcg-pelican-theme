@@ -10,3 +10,4 @@ pelican/textconf.py
 pelican/Makefile
 pelican/*.pyc
 pelican/header.conf
+pelican/tmp/*
