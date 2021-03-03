@@ -1,30 +1,36 @@
+# Main Information
+DEBUG ?= 0 # Are we debugging?
+RELATIVE ?= 0 # Are links relative?
+WITHLATEX ?= 0 # Is latex being used?
+BLOGURL=blog_name
+
+# Document directory information
+BASEDIR=$(CURDIR)
+INPUTDIR=$(BASEDIR)/../data/content
+CONFFILE=$(BASEDIR)/pelicanconf.py
+DEVDIR=$(BASEDIR)/../dev
+OUTPUTDEVDIR=$(BASEDIR)/../../public_html/dev/$(BLOGURL)
+PUBLISHCONF=$(BASEDIR)/publishconf.py
+PUBLISHDIR=$(BASEDIR)/../publish
+OUTPUTPUBLISHDIR=$(BASEDIR)/../../public_html/blogs/$(BLOGURL)
+
+# Python Information
 PY?=python3
 PELICAN?=pelican
 PELICANOPTS=
 RSYNCOPTS=-avhc
 
-BASEDIR=$(CURDIR)
-INPUTDIR=$(BASEDIR)/../data/content
-CONFFILE=$(BASEDIR)/pelicanconf.py
-DEVDIR=$(BASEDIR)/../dev
-OUTPUTDEVDIR=$(BASEDIR)/../../public_html/dev/blog_name
-PUBLISHCONF=$(BASEDIR)/publishconf.py
-PUBLISHDIR=$(BASEDIR)/../publish
-OUTPUTPUBLISHDIR=$(BASEDIR)/../../public_html/blogs/blog_name
-
-DEBUG ?= 0
+# Handle the options from above
 ifeq ($(DEBUG), 1)
 	PELICANOPTS += -D
 else
 	RSYNCOPTS += -q
 endif
 
-RELATIVE ?= 0
 ifeq ($(RELATIVE), 1)
 	PELICANOPTS += --relative-urls
 endif
 
-WITHLATEX ?= 0
 ifeq ($(WITHLATEX), 1)
 	LATEX=python ./latex.py
 else
@@ -46,6 +52,8 @@ help:
 	@echo 'Set the DEBUG variable to 1 to enable debugging, e.g. make DEBUG=1 html   '
 	@echo 'Set the RELATIVE variable to 1 to enable relative urls                    '
 	@echo '                                                                          '
+
+dev: html
 
 html:
 	$(LATEX)
@@ -80,9 +88,10 @@ else
 	$(PELICAN) -lr $(INPUTDIR) -o $(DEVDIR) -s $(CONFFILE) $(PELICANOPTS)
 endif
 
+live: publish
 publish:
 	$(PELICAN) $(INPUTDIR) -o $(PUBLISHDIR) -s $(PUBLISHCONF) $(PELICANOPTS)
 	rsync $(RSYNCOPTS) $(PUBLISHDIR)/ $(OUTPUTPUBLISHDIR)/ --delete
 
 
-.PHONY: html help clean regenerate serve serve-global devserver publish 
+.PHONY: html help clean regenerate serve serve-global devserver publish dev live

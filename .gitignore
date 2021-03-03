@@ -11,3 +11,4 @@ pelican/Makefile
 pelican/*.pyc
 pelican/header.conf
 pelican/tmp/*
+pelican/__pycache__/

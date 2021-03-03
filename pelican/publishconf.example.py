@@ -17,6 +17,6 @@ SITEURL = 'http://thecaligarmo.com/dev/pelican' # Make sure it matche Makefile
 
 MENUITEMS = (('Home', SITEURL),)
 
-MENUITEMS_FR = (('Acceuil', 'http://thecaligarmo.com/de/pelican/fr'),)
+MENUITEMS_FR = (('Acceuil', 'http://thecaligarmo.com/dev/pelican/fr'),)
 
 I18N_SUBSITES['fr']['MENUITEMS'] = MENUITEMS_FR
