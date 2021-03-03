@@ -1,0 +1,5 @@
+This folder contains two folders:
+ - content
+ - latex
+
+If latex is present, content is popuplated with latex stuff as a warning.
