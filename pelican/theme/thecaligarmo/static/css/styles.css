@@ -127,7 +127,7 @@ h1 {
 }
 
 h2 { 
-    font-size: 1.625rem;
+    font-size: 1.5rem;
     line-height: 1.285714285714286em; 
     font-weight: 600;
     margin-bottom: 10px;
@@ -138,13 +138,13 @@ h2:after {
     margin-top: 10px;
     width: 40px;
     border-bottom: 3px solid var(--main-color);
-    /*border-bottom: 3px solid rgba(0,0,0,0.2);*/
 }
 
 h3 { 
     font-size: 1.25rem;
     line-height: 1.285714285714286em; 
     font-weight: 600;
+    margin-top: 30px; 
     margin-bottom: 10px;
 }
 h3:after {
@@ -152,7 +152,7 @@ h3:after {
     content: " ";
     margin-top: 10px;
     width: 40px;
-    border-bottom: 3px solid var(--main-color);
+    border-bottom: 3px solid var(--secondary-color); /*rgba(0,0,0,0.2);*/
 }
 
 h4 { 
@@ -167,9 +167,8 @@ h4:after {
     content: " ";
     margin-top: 10px;
     width: 40px;
-    border-bottom: 3px solid rgba(0,0,0,0.2);    
+    border-bottom: 3px solid var(--secondary-color); /*rgba(0,0,0,0.2);*/
 }
-
 
 
 /* Navbar */
@@ -505,25 +504,12 @@ blockquote{
     font-weight: 400;
     line-height: 24px;    
 }
-.example {
-    background-color:var(--example-color);
-    border:1px solid var(--example-border-color);
-    border-radius:10px;
-    padding:20px;
-}
 
-.definition strong:first-child {
-    background-color:#fff;
-    padding:0px;
-}
 
-.definition strong {
-    background-color:var(--definition-color);
-    border-radius:3px;
-    padding:0px 3px 1px;
-}
-
-.references ul{
-    padding-left:0px;
-    list-style:none;
+/* Block item */
+.ablock {
+    background-color:var(--secondary-color);
+    border: 1px solid var(--main-color);
+    border-radius: 10px;
+    padding:20px 20px 0px 20px;
 }

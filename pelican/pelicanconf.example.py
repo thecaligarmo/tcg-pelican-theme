@@ -89,12 +89,9 @@ FONT_FAMILY = "font-family: 'Amiri', serif;"
 #################
 BACKGROUND_COLOR = '#f1f6f8'
 MAIN_COLOR = '#357F9B' # Main color
+SECONDARY_COLOR = '#A7ECFF'
 LINK_COLOR = '#357F9B'
 LINK_HOVER_COLOR = '#5399B6'
-SECONDARY_COLOR = '#A7ECFF'
-DEFINITION_COLOR = '#e5f9ff'
-EXAMPLE_COLOR = '#e5f9ff'
-EXAMPLE_BORDER_COLOR = '#75a5b3'
 
 #################
 # Header
